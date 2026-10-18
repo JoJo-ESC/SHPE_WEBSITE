@@ -1,0 +1,5 @@
+# Send every unknown path to index.html so client-side routes (/events, /eboard…) work on refresh
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]
