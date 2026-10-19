@@ -8,12 +8,7 @@ const YEAR = new Date().getFullYear()
 function Logo() {
   return (
     <Link to="/" className="logo" aria-label="SHPE-Rensselaer home">
-      <img src={asset('images/mark.png')} alt="" width={34} height={34} />
-      <span className="logo-word">SHPE</span>
-      <span className="logo-chapter">
-        Rensselaer
-        <small>RPI · Troy, NY</small>
-      </span>
+      <img src={asset('images/logo-shpe-rpi.png')} alt="" width={161} height={35} />
     </Link>
   )
 }

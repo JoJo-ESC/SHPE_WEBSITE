@@ -17,8 +17,8 @@ export const SOCIAL = {
   instagram: 'https://www.instagram.com/shperpi/',
   outreachInstagram: 'https://www.instagram.com/shperpioutreach/',
   tiktok: 'https://www.tiktok.com/@shperpi',
-  youtube: 'https://www.youtube.com/results?search_query=SHPE+Rensselaer', // TODO: channel URL
-  linkedin: 'https://www.linkedin.com/search/results/all/?keywords=SHPE%20Rensselaer', // TODO: page URL
+  youtube: 'https://www.youtube.com/@shperpi',
+  linkedin: 'https://www.linkedin.com/company/shpe-rensselaer/home/',
 }
 
 export const FORMS = {

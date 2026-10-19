@@ -27,3 +27,25 @@ export const EVENTS: ChapterEvent[] = [
 ]
 
 export const CATEGORIES: Category[] = ['General body', 'Academic', 'Career', 'Community']
+
+// The month grid on the home page. `days` lists every date an event runs;
+// multi-day events must stay within one week row. A "\n" in a title is a line
+// break in the grid and a space everywhere else.
+export type CalendarEntry = { days: number[]; title: string; time: string }
+
+export const HOME_CALENDAR: { year: number; month: number; entries: CalendarEntry[] } = {
+  year: 2026,
+  month: 8, // 0-based: September
+  entries: [
+    { days: [3], title: 'GBM 1', time: '6:30 - 9 PM' },
+    // Zero-width space lets the name wrap after "Global" in the narrow cell
+    { days: [10], title: 'Global​Foundries', time: '6 - 7 PM' },
+    { days: [14], title: 'Study Jam 1', time: '7 - 9 PM' },
+    { days: [17], title: 'GBM 2', time: '6:30 - 9 PM' },
+    { days: [19], title: 'MentorSHPE Mentor Matching', time: '12 - 2 PM' },
+    { days: [20], title: 'SHPEtinas Cafecitos', time: '12 - 2 PM' },
+    { days: [21], title: 'Study Jam 2', time: '7 - 9 PM' },
+    { days: [24, 25], title: 'NSBE SHPE\nCareer Fair', time: '' },
+    { days: [28], title: 'Study Jam 3', time: '7 - 9 PM' },
+  ],
+}
