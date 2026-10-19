@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLink, CheckList, Eyebrow, PageHero, SectionHead } from '../components/ui'
+import { ArrowLink, CheckList, PageHero, SectionHead } from '../components/ui'
 import { asset } from '../data/site'
 
 const PILLARS = [
@@ -60,7 +60,6 @@ export function MemberSHPE() {
   return (
     <>
       <PageHero
-        eyebrow="MemberSHPE"
         title={
           <>
             Being a member means <em>more than a meeting.</em>
@@ -72,20 +71,16 @@ export function MemberSHPE() {
 
       <section className="section">
         <div className="container">
-          <SectionHead eyebrow="The five pillars" title={<>How we develop our <em>members</em></>} />
+          <SectionHead title={<>How we develop our <em>members</em></>} />
           <div className="pillars">
             <div className="pillar-tabs" role="tablist" aria-label="Development pillars">
               {PILLARS.map((pl, n) => (
                 <button key={pl.name} role="tab" aria-selected={n === active} className={n === active ? 'is-active' : ''} onClick={() => setActive(n)}>
-                  <span className="pillar-num">{n + 1}</span>
                   {pl.name}
                 </button>
               ))}
             </div>
-            <div className="card pillar-panel" role="tabpanel">
-              <Eyebrow>
-                Pillar {active + 1} of {PILLARS.length}
-              </Eyebrow>
+            <div className="pillar-panel" role="tabpanel">
               <h3 className="h2">{p.name}</h3>
               <p className="lead-dark">{p.summary}</p>
               <CheckList items={p.points} />
@@ -99,11 +94,10 @@ export function MemberSHPE() {
 
       <section className="section bg-navy">
         <div className="container">
-          <SectionHead eyebrow="Where to start" title={<>Three ways <em>in</em></>} />
+          <SectionHead title={<>Three ways <em>in</em></>} />
           <div className="grid-3">
-            {WAYS.map((w, n) => (
-              <div key={w.title} className="card-dark">
-                <span className="card-num">0{n + 1}</span>
+            {WAYS.map((w) => (
+              <div key={w.title} className="plain-item">
                 <h3>{w.title}</h3>
                 <p>{w.body}</p>
                 <ArrowLink to={w.to} light>
@@ -118,14 +112,12 @@ export function MemberSHPE() {
       <section className="section">
         <div className="container">
           <SectionHead
-            eyebrow="Member benefits"
             title={<>We promise you the <em>best.</em></>}
             aside={<p>Here's what being part of SHPE-Rensselaer opens up for you.</p>}
           />
           <ol className="benefits">
-            {BENEFITS.map((b, n) => (
-              <li key={b} className="card">
-                <span className="card-num">0{n + 1}</span>
+            {BENEFITS.map((b) => (
+              <li key={b}>
                 <p>{b}</p>
               </li>
             ))}

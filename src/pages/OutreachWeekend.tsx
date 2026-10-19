@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import { Icon } from '../components/Icon'
-import { ArrowLink, CheckList, Eyebrow, PageHero, SectionHead } from '../components/ui'
+import { ArrowLink, CheckList, PageHero, SectionHead } from '../components/ui'
 import { asset, FORMS, SOCIAL } from '../data/site'
 
 const AUDIENCES = {
   'high-school': {
     tab: "I'm a high school student",
-    eyebrow: 'For high school students',
     title: 'Apply to be part of Outreach Weekend',
     body: 'Spend a weekend at RPI with SHPE-Rensselaer: hands-on STEM activities, college students who have been in your shoes, and a real look at what studying engineering is like.',
     points: ['Hands-on engineering workshops', 'Stay with an RPI student host', 'See campus life up close'],
@@ -15,7 +14,6 @@ const AUDIENCES = {
   },
   rpi: {
     tab: "I'm an RPI student",
-    eyebrow: 'For RPI students',
     title: 'Host a visiting student',
     body: "Be the role model you wish you'd had. Hosts welcome a high school student for the weekend, help lead workshops and show them what life at RPI is really like.",
     points: ['Lead or assist a STEM workshop', 'Host a visiting student for the weekend', 'Count it toward your outreach involvement'],
@@ -32,13 +30,12 @@ export function OutreachWeekend() {
     <>
       <PageHero
         crumbs={[{ to: '/membershpe', label: 'MemberSHPE' }]}
-        eyebrow={<span className="pill-light">This year's theme: WALL-E</span>}
         title={
           <>
             Outreach <em>Weekend</em>
           </>
         }
-        lead="Our biggest outreach event of the year. Underrepresented high school students spend a weekend with SHPE-Rensselaer doing hands-on STEM, and RPI students host them."
+        lead="This year's theme is WALL-E. Our biggest outreach event of the year. Underrepresented high school students spend a weekend with SHPE-Rensselaer doing hands-on STEM, and RPI students host them."
         image={asset('images/cooking.jpg')}
       >
         <a href="#involved" className="btn btn-primary">
@@ -51,7 +48,7 @@ export function OutreachWeekend() {
 
       <section className="section" id="involved">
         <div className="container">
-          <SectionHead eyebrow="Get involved" title={<>Which one are <em>you?</em></>} />
+          <SectionHead title={<>Which one are <em>you?</em></>} />
           <div className="seg seg-lg" role="tablist">
             {(Object.keys(AUDIENCES) as (keyof typeof AUDIENCES)[]).map((k) => (
               <button key={k} role="tab" aria-selected={who === k} className={who === k ? 'is-active' : ''} onClick={() => setWho(k)}>
@@ -59,9 +56,8 @@ export function OutreachWeekend() {
               </button>
             ))}
           </div>
-          <div className="card audience" role="tabpanel">
+          <div className="audience" role="tabpanel">
             <div>
-              <Eyebrow>{a.eyebrow}</Eyebrow>
               <h3 className="h2">{a.title}</h3>
               <p className="lead-dark">{a.body}</p>
               <CheckList items={a.points} />
@@ -79,7 +75,6 @@ export function OutreachWeekend() {
       <section className="section bg-navy">
         <div className="container workshop">
           <div>
-            <p className="eyebrow is-light">Featured workshop</p>
             <h2 className="h1">
               WALL-E's Directive: <em>Escape the Maze</em>
             </h2>
@@ -87,11 +82,7 @@ export function OutreachWeekend() {
               A hands-on robotics workshop from SHPE and RCOS. Students program a small robot to sense the walls around it
               and find its own way out of a maze.
             </p>
-            <ul className="chips chips-light">
-              <li>Arduino Uno</li>
-              <li>Ultrasonic sensors</li>
-              <li>Motor control</li>
-            </ul>
+            <p className="workshop-kit">Built with an Arduino Uno, ultrasonic sensors and motor control.</p>
           </div>
           <svg className="maze" viewBox="0 0 220 220" aria-hidden="true">
             <rect x="10" y="10" width="200" height="200" rx="14" />
@@ -104,21 +95,18 @@ export function OutreachWeekend() {
 
       <section className="section bg-mist">
         <div className="container">
-          <SectionHead eyebrow="All year long" title={<>Outreach doesn't stop after <em>one weekend</em></>} />
+          <SectionHead title={<>Outreach doesn't stop after <em>one weekend</em></>} />
           <div className="grid-3">
-            <div className="card">
-              <span className="big-mark">K-12</span>
-              <h3>Outreach events</h3>
+            <div className="plain-item">
+              <h3>K-12 outreach events</h3>
               <p className="muted">STEM activities for underrepresented students in local schools throughout the year.</p>
             </div>
-            <div className="card">
-              <span className="big-mark">Jr.</span>
+            <div className="plain-item">
               <h3>SHPE Jr.</h3>
               <p className="muted">Our SHPE Jr. committee works with local high school faculty to plan STEM projects for Hispanic high school students.</p>
               <ArrowLink to={FORMS.committee}>Join the committee</ArrowLink>
             </div>
-            <div className="card">
-              <span className="big-mark">OW</span>
+            <div className="plain-item">
               <h3>Outreach Weekend</h3>
               <p className="muted">Our annual flagship. Follow along on Instagram for this year's dates and photos.</p>
               <ArrowLink to={SOCIAL.outreachInstagram}>@shperpioutreach</ArrowLink>

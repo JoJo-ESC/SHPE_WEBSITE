@@ -5,8 +5,6 @@ import { PageHero } from '../components/ui'
 import { CATEGORIES, EVENTS, MONTHS, type Category, type Month } from '../data/events'
 import { DOCS } from '../data/site'
 
-const catClass = (c: Category) => `cat-${c.split(' ')[0].toLowerCase()}`
-
 export function Events() {
   const [month, setMonth] = useState<Month>('September')
   const [filter, setFilter] = useState<Category | 'All'>('All')
@@ -21,7 +19,6 @@ export function Events() {
   return (
     <>
       <PageHero
-        eyebrow="Upcoming events"
         title={
           <>
             What's next <em>in SHPE</em>
@@ -47,8 +44,7 @@ export function Events() {
               </div>
               <div className="chips" aria-label="Filter by category">
                 {(['All', ...CATEGORIES] as const).map((c) => (
-                  <button key={c} className={`chip ${c !== 'All' ? catClass(c) : ''} ${filter === c ? 'is-active' : ''}`} aria-pressed={filter === c} onClick={() => setFilter(c)}>
-                    {c !== 'All' && <span className="dot" />}
+                  <button key={c} className={`chip ${filter === c ? 'is-active' : ''}`} aria-pressed={filter === c} onClick={() => setFilter(c)}>
                     {c}
                   </button>
                 ))}
@@ -59,7 +55,7 @@ export function Events() {
             </p>
 
             {weeks.length === 0 && (
-              <div className="card empty">
+              <div className="empty">
                 <h3>{month} is coming soon</h3>
                 <p>The Eboard posts each month's calendar ahead of time. Follow @shperpi on Instagram to hear first.</p>
               </div>
@@ -70,7 +66,7 @@ export function Events() {
                 <h3 className="week-label">{week}</h3>
                 <ul className="event-list">
                   {items.map((e) => (
-                    <li key={e.title} className="card event">
+                    <li key={e.title} className="event">
                       <div className="event-date">
                         {e.day ? (
                           <>
@@ -86,13 +82,9 @@ export function Events() {
                         <small>{e.month.slice(0, 4)}</small>
                       </div>
                       <div>
-                        <span className={`tag ${catClass(e.category)}`}>
-                          <span className="dot" />
-                          {e.category}
-                        </span>
                         <h4>{e.title}</h4>
                         <p className="event-time">
-                          <Icon name="clock" size={14} /> {e.time}
+                          {e.category} · {e.time}
                         </p>
                       </div>
                     </li>
@@ -103,8 +95,7 @@ export function Events() {
           </div>
 
           <aside className="events-side">
-            <div className="card-dark">
-              <p className="eyebrow is-light">Regulars</p>
+            <div className="side-block">
               <h3>Every month, count on</h3>
               <dl className="regulars">
                 <dt>General body meetings</dt>
@@ -115,7 +106,7 @@ export function Events() {
                 <dd>12–2 PM</dd>
               </dl>
             </div>
-            <div className="card">
+            <div className="side-block">
               <h3>Want to host an event?</h3>
               <p className="muted">Committees help the Eboard plan everything on this calendar.</p>
               <Link to="/eboard#committees" className="link-strong">

@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { Icon } from '../components/Icon'
-import { Avatar, Eyebrow, PageHero, SectionHead } from '../components/ui'
+import { Avatar, PageHero, SectionHead } from '../components/ui'
 import { officer } from '../data/eboard'
 import { asset, CONTACT, SOCIAL } from '../data/site'
 
@@ -33,7 +33,6 @@ export function Contact() {
   return (
     <>
       <PageHero
-        eyebrow="Contact us"
         title={
           <>
             We'd love to <em>hear from you.</em>
@@ -44,7 +43,7 @@ export function Contact() {
 
       <section className="section">
         <div className="container">
-          <SectionHead eyebrow="Who should I contact?" title={<>What's it <em>about?</em></>} />
+          <SectionHead title={<>What's it <em>about?</em></>} />
           <div className="chips chips-lg">
             {TOPICS.map((t) => (
               <button key={t.id} className={`chip ${t.id === topicId ? 'is-active' : ''}`} aria-pressed={t.id === topicId} onClick={() => setTopicId(t.id)}>
@@ -55,11 +54,11 @@ export function Contact() {
           <div className="contact-person" aria-live="polite">
             <Avatar name={person.name} photo={person.photo} size="md" />
             <div>
-              <p className="eyebrow is-light">{person.role}</p>
               <h3>{person.name}</h3>
+              <p className="contact-role">{person.role}</p>
               <p>{topic.note}</p>
             </div>
-            <a className="btn btn-light" href={`mailto:${person.email}`}>
+            <a className="btn btn-navy" href={`mailto:${person.email}`}>
               <Icon name="mail" size={16} /> {person.email}
             </a>
           </div>
@@ -68,7 +67,7 @@ export function Contact() {
 
       <section className="section bg-cream">
         <div className="container contact-grid">
-          <form className="card form" onSubmit={handleSubmit}>
+          <form className="form" onSubmit={handleSubmit}>
             <h2 className="h2">Send us a message</h2>
             <p className="muted small">Only name, email and message are required. No phone number or mailing address needed.</p>
             <div className="form-row">
@@ -104,8 +103,8 @@ export function Contact() {
           </form>
 
           <div className="contact-side">
-            <div className="card">
-              <Eyebrow>Find us</Eyebrow>
+            <div className="side-block">
+              <h3>Find us</h3>
               <a href={CONTACT.mapUrl} target="_blank" rel="noreferrer" className="map">
                 <img src={asset('images/chapter-group.jpg')} alt="" />
                 <span>
@@ -117,8 +116,8 @@ export function Contact() {
                 {CONTACT.addressLine1}, {CONTACT.addressLine2}
               </p>
             </div>
-            <div className="card-dark">
-              <p className="eyebrow is-light">Follow along</p>
+            <div className="side-block">
+              <h3>Follow along</h3>
               <ul className="follow">
                 <li><a href={SOCIAL.instagram} target="_blank" rel="noreferrer"><Icon name="instagram" /> Instagram · @shperpi</a></li>
                 <li><a href={SOCIAL.tiktok} target="_blank" rel="noreferrer"><Icon name="tiktok" /> TikTok · @shperpi</a></li>
