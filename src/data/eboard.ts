@@ -11,18 +11,16 @@ export type Officer = {
   photo?: string
 }
 
-// Officer emails other than president@ and webmaster@ follow the role-based
-// pattern; confirm them before launch.
 export const OFFICERS: Officer[] = [
   { id: 'president', name: 'Lauren Caraballo', role: 'President', degree: 'B.S. Mechanical Engineering', year: "'28", email: 'president@shpe.rpi.edu', photo: asset('images/eboard/president.jpg') },
-  { id: 'vp', name: 'Pablo Semidey', role: 'Vice President', degree: 'B.S. Information Technology and Web Science', year: "'28", email: 'vp@shpe.rpi.edu', photo: asset('images/eboard/vp.jpg') },
-  { id: 'regional', name: 'Melissa Flores', role: 'Regional Representative', degree: 'Ph.D. Aerospace Engineering', year: "'28", email: 'regional@shpe.rpi.edu', photo: asset('images/eboard/regional.jpg') },
-  { id: 'external', name: 'Sophia Meneses', role: 'External Secretary', degree: 'B.S. Chemical Engineering', year: "'29", email: 'external@shpe.rpi.edu', photo: asset('images/eboard/external.jpg') },
-  { id: 'internal', name: 'Christopher Hernandez', role: 'Internal Secretary', degree: 'B.S. ITWS and Business Management', year: "'29", email: 'internal@shpe.rpi.edu', photo: asset('images/eboard/internal.jpg') },
+  { id: 'vp', name: 'Pablo Semidey', role: 'Vice President', degree: 'B.S. Information Technology and Web Science', year: "'28", email: 'vice-president@shpe.rpi.edu', photo: asset('images/eboard/vp.jpg') },
+  { id: 'regional', name: 'Melissa Flores', role: 'Regional Representative', degree: 'Ph.D. Aerospace Engineering', year: "'28", email: 'regional-rep@shpe.rpi.edu', photo: asset('images/eboard/regional.jpg') },
+  { id: 'external', name: 'Sophia Meneses', role: 'External Secretary', degree: 'B.S. Chemical Engineering', year: "'29", email: 'external-secretary@shpe.rpi.edu', photo: asset('images/eboard/external.jpeg') },
+  { id: 'internal', name: 'Christopher Hernandez', role: 'Internal Secretary', degree: 'B.S. ITWS and Business Management', year: "'29", email: 'internal-secretary@shpe.rpi.edu', photo: asset('images/eboard/internal.jpg') },
   { id: 'treasurer', name: 'Carlos Mejia', role: 'Treasurer', degree: 'B.S. Electrical Engineering', year: "'29", email: 'treasurer@shpe.rpi.edu', photo: asset('images/eboard/treasurer.jpg') },
-  { id: 'corporate', name: 'Anthony Enriquez', role: 'Alumni and Corporate Rep', degree: 'B.S. Electrical Engineering', year: "'28", email: 'corporate@shpe.rpi.edu', photo: asset('images/eboard/corporate.jpg') },
+  { id: 'corporate', name: 'Anthony Enriquez', role: 'Alumni and Corporate Rep', degree: 'B.S. Electrical Engineering', year: "'28", email: 'alumni-corporate@shpe.rpi.edu', photo: asset('images/eboard/corporate.jpg') },
   { id: 'webmaster', name: 'Abigail Gutierrez', role: 'Webmaster', degree: 'B.S. Biochemistry and Biophysics', year: "'29", email: 'webmaster@shpe.rpi.edu', photo: asset('images/eboard/webmaster.jpg') },
-  { id: 'freshman', name: 'Xavier Russo', role: 'Freshman Representative', degree: 'B.S. Mechanical Engineering', year: "'30", email: 'freshman@shpe.rpi.edu', photo: asset('images/eboard/freshman.jpg') },
+  { id: 'freshman', name: 'Xavier Russo', role: 'Freshman Representative', degree: 'B.S. Mechanical Engineering', year: "'30", email: 'freshman-rep@shpe.rpi.edu', photo: asset('images/eboard/freshman.jpg') },
 ]
 
 export const officer = (id: string) => OFFICERS.find((o) => o.id === id)!

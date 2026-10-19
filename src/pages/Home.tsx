@@ -1,35 +1,44 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import { Icon, type IconName } from '../components/Icon'
 import { SocialLinks } from '../components/Layout'
-import { ArrowLink, Avatar, CheckList, Eyebrow, SectionHead, SignupForm } from '../components/ui'
+import { CheckList, SectionHead, SignupForm } from '../components/ui'
+import { useReveal } from '../components/useReveal'
 import { OFFICERS } from '../data/eboard'
+import { HOME_CALENDAR } from '../data/events'
 import { asset } from '../data/site'
 
-const SLIDES = [
+// `position` overrides the default crop (CSS object-position) for photos framed differently
+const SLIDES: { src: string; alt: string; position?: string }[] = [
   { src: asset('images/chapter-group.jpg'), alt: 'SHPE-Rensselaer members at a chapter event' },
   { src: asset('images/shpetinas-dinner.jpg'), alt: 'SHPEtinas members sharing dinner' },
   { src: asset('images/eboard.jpg'), alt: 'The SHPE-Rensselaer Executive Board' },
-  { src: asset('images/social.jpg'), alt: 'Members at a chapter social' },
+  { src: asset('images/img-0493_orig.jpg'), alt: 'SHPE-Rensselaer members holding flags from across Latin America', position: '50% 40%' },
 ]
 
 function Hero() {
   const [i, setI] = useState(0)
-  const go = (d: number) => setI((n) => (n + d + SLIDES.length) % SLIDES.length)
 
   useEffect(() => {
-    const t = setInterval(() => go(1), 7000)
+    // Leave the first photo up for visitors who turn off motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const t = setInterval(() => setI((n) => (n + 1) % SLIDES.length), 7000)
     return () => clearInterval(t)
   }, [i])
 
   return (
     <section className="hero">
       {SLIDES.map((s, n) => (
-        <img key={s.src} src={s.src} alt={n === i ? s.alt : ''} className={`hero-img ${n === i ? 'is-active' : ''}`} />
+        <img
+          key={s.src}
+          src={s.src}
+          alt={n === i ? s.alt : ''}
+          className={`hero-img ${n === i ? 'is-active' : ''}`}
+          style={s.position ? { objectPosition: s.position } : undefined}
+        />
       ))}
       <div className="hero-shade" aria-hidden="true" />
-      <div className="container hero-inner">
-        <p className="eyebrow is-light">Society of Hispanic Professional Engineers · Rensselaer Polytechnic Institute</p>
+      <div className="container hero-inner" data-reveal>
         <h1 className="hero-title">
           Find your <em>familia</em>
           <br />
@@ -44,24 +53,22 @@ function Hero() {
             Become a member
           </Link>
           <Link to="/events" className="btn btn-ghost-light">
-            See what's next <Icon name="chevron" size={15} />
+            See what's next
           </Link>
         </div>
       </div>
-      <div className="container hero-foot">
+      <div className="container hero-foot" data-reveal>
         <SocialLinks className="social-hero" />
-        <div className="hero-controls">
-          <div className="hero-dots" aria-hidden="true">
-            {SLIDES.map((s, n) => (
-              <span key={s.src} className={n === i ? 'is-active' : ''} />
-            ))}
-          </div>
-          <button aria-label="Previous photo" onClick={() => go(-1)}>
-            <Icon name="chevronLeft" size={16} />
-          </button>
-          <button aria-label="Next photo" onClick={() => go(1)}>
-            <Icon name="chevron" size={16} />
-          </button>
+        <div className="hero-dots">
+          {SLIDES.map((s, n) => (
+            <button
+              key={s.src}
+              className={n === i ? 'is-active' : ''}
+              aria-label={`Show photo ${n + 1} of ${SLIDES.length}`}
+              aria-pressed={n === i}
+              onClick={() => setI(n)}
+            />
+          ))}
         </div>
       </div>
     </section>
@@ -71,18 +78,11 @@ function Hero() {
 function NextStrip() {
   return (
     <section className="next-strip">
-      <div className="container next-grid">
-        <div className="next-card">
-          <span className="next-icon">
-            <Icon name="calendar" size={22} />
-          </span>
-          <div>
-            <Eyebrow>What's next in SHPE</Eyebrow>
-            <h3>2026–27 member calendar</h3>
-            <p>GBMs, workshops and socials for the year, all in one place. September is out now.</p>
-          </div>
-          <ArrowLink to="/events">Open the calendar</ArrowLink>
-        </div>
+      <div className="container next-grid" data-reveal>
+        <Link to="/events" className="next-link">
+          <h3>2026–27 member calendar</h3>
+          <p>GBMs, workshops and socials for the year, all in one place. September is out now.</p>
+        </Link>
         <dl className="stats">
           <div>
             <dt>1974</dt>
@@ -135,10 +135,9 @@ const ABOUT_TABS = {
 function About() {
   const [tab, setTab] = useState<keyof typeof ABOUT_TABS>('Since 1974')
   return (
-    <section className="section bg-mist" id="about">
-      <div className="container about-grid">
+    <section className="section bg-mist about-section" id="about">
+      <div className="container about-grid" data-reveal>
         <div>
-          <Eyebrow>Who we are</Eyebrow>
           <h2 className="h1">
             Part of a national movement, rooted at <em>RPI.</em>
           </h2>
@@ -169,8 +168,8 @@ const PILLARS: { title: string; body: string; icon: IconName; to: string }[] = [
 
 function WhySHPE() {
   return (
-    <section className="section">
-      <div className="container">
+    <section className="section why-section">
+      <div className="container" data-reveal>
         <h2 className="h1 why-title">
           Why <em>SHPE?</em>
           <br />
@@ -199,27 +198,84 @@ function WhySHPE() {
   )
 }
 
-const STEPS = [
-  { title: 'Come to an event', body: 'Drop into a GBM or workshop. No experience or sign-up needed, just show up.', link: 'View the calendar', to: '/events' },
-  { title: 'Meet the Eboard', body: 'Have a question? Every officer is one email away, so reach out to whoever fits.', link: 'Meet the board', to: '/eboard' },
-  { title: 'Join the mailing list', body: 'Get event reminders, opportunities and chapter news straight to your RPI inbox.', link: 'Sign up below', to: '/#join' },
-]
+const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
-function Steps() {
+function MonthCalendar() {
+  const { year, month, entries } = HOME_CALENDAR
+  const first = new Date(year, month, 1)
+  const offset = first.getDay()
+  const daysInMonth = new Date(year, month + 1, 0).getDate()
+  const monthName = first.toLocaleString('en-US', { month: 'long' })
+  // Grid position (1-based) of a date in the month
+  const cell = (d: number) => ({ col: ((offset + d - 1) % 7) + 1, row: Math.floor((offset + d - 1) / 7) + 1 })
+  const busy = new Set(entries.flatMap((e) => e.days))
+  const shortDate = (e: (typeof entries)[number]) =>
+    `${WEEKDAYS[new Date(year, month, e.days[0]).getDay()].slice(0, 3)}, ${monthName.slice(0, 3)} ${
+      e.days.length > 1 ? `${e.days[0]}–${e.days[e.days.length - 1]}` : e.days[0]
+    }`
+
   return (
-    <section className="section section-tight-top">
-      <div className="container">
-        <SectionHead eyebrow="Getting started" title={<>Getting involved takes <em>three steps.</em></>} />
-        <ol className="steps">
-          {STEPS.map((s, n) => (
-            <li key={s.title} className="card step">
-              <span className="step-num">{n + 1}</span>
-              <h3>{s.title}</h3>
-              <p>{s.body}</p>
-              <ArrowLink to={s.to}>{s.link}</ArrowLink>
-            </li>
-          ))}
-        </ol>
+    <section className="section cal-section">
+      <div className="container cal-layout" data-reveal>
+        <div className="cal-copy">
+          <h2 className="h2">This month's calendar</h2>
+          <p>
+            Here's everything happening in SHPE this {monthName}: GBMs, Study Jams, career events and time with the
+            familia. Everyone is welcome, no sign-up needed. Just show up.
+          </p>
+          <Link to="/events" className="arrow-link">
+            See all events
+          </Link>
+        </div>
+
+        <div className="cal-card">
+          <div className="cal-main">
+            <h3 className="cal-title">
+              {monthName} {year}
+            </h3>
+            <div className="cal-weekdays" aria-hidden="true">
+              {WEEKDAYS.map((w) => (
+                <span key={w}>{w}</span>
+              ))}
+            </div>
+            <div className="cal-grid" aria-hidden="true">
+              {Array.from({ length: daysInMonth }, (_, n) => {
+                const { col, row } = cell(n + 1)
+                return (
+                  <span key={n} className={`cal-day ${busy.has(n + 1) ? 'has-event' : ''}`} style={{ gridColumn: col, gridRow: row }}>
+                    {n + 1}
+                  </span>
+                )
+              })}
+              {entries.map((e) => {
+                const { col, row } = cell(e.days[0])
+                // Multi-day events run as a spaced-out banner across their days
+                return (
+                  <span
+                    key={e.title}
+                    className={`cal-event ${e.days.length > 1 ? 'is-banner' : ''} ${e.title.length > 20 ? 'is-long' : ''}`}
+                    style={{ gridColumn: `${col} / span ${e.days.length}`, gridRow: row }}
+                  >
+                    <strong>{e.title}</strong>
+                    {e.time}
+                  </span>
+                )
+              })}
+            </div>
+            <ul className="cal-agenda">
+              {entries.map((e) => (
+                <li key={e.title}>
+                  <span>{shortDate(e)}</span>
+                  <strong>{e.title}</strong>
+                  {e.time && <small>{e.time}</small>}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <span className="cal-sep" aria-hidden="true">
+            {monthName.slice(0, 3)}
+          </span>
+        </div>
       </div>
     </section>
   )
@@ -228,14 +284,13 @@ function Steps() {
 function Collage() {
   return (
     <section className="collage" aria-label="Chapter programs">
-      <div className="collage-grid">
+      <div className="collage-grid" data-reveal>
         <Link to="/eboard#committees" className="collage-tile collage-logo">
           <img src={asset('images/mentorshpe.png')} alt="MentorSHPE: The power of connection" />
         </Link>
         <img className="collage-tile" src={asset('images/gbm.jpg')} alt="Members talking at a general body meeting" />
         <Link to="/eboard#committees" className="collage-tile collage-shpetinas">
-          <span className="shpetinas-word">SHPEtinas</span>
-          <span className="shpetinas-tag">Igniting Latinas in STEM</span>
+          <img src={asset('images/shpetinas-logo.png')} alt="SHPEtinas: Igniting Latinas in STEM" />
         </Link>
         <img className="collage-tile" src={asset('images/cooking.jpg')} alt="A member cooking at a chapter social" />
         <img className="collage-tile" src={asset('images/shpetinas-dinner.jpg')} alt="SHPEtinas dinner" />
@@ -245,42 +300,26 @@ function Collage() {
 }
 
 function EboardPreview() {
-  const [sel, setSel] = useState(OFFICERS[0])
   return (
-    <section className="section bg-navy">
+    <section className="section bg-navy eb-section">
       <div className="container">
-        <SectionHead
-          eyebrow="Leadership"
-          title={<>Meet the 2026–27 <em>Eboard</em></>}
-          aside={<p>Tap an officer to see how to reach them.</p>}
-        />
-        <div className="eb-preview">
-          <ul className="eb-grid">
-            {OFFICERS.map((o) => (
-              <li key={o.id}>
-                <button className={sel.id === o.id ? 'is-active' : ''} onClick={() => setSel(o)} aria-pressed={sel.id === o.id}>
-                  <Avatar name={o.name} photo={o.photo} size="sm" />
-                  <span>
-                    <strong>{o.name}</strong>
-                    <small>{o.role}</small>
-                  </span>
-                </button>
-              </li>
-            ))}
-          </ul>
-          <div className="card eb-detail" aria-live="polite">
-            <Avatar name={sel.name} photo={sel.photo} size="lg" />
-            <Eyebrow>{sel.role}</Eyebrow>
-            <h3>{sel.name}</h3>
-            <p>
-              {sel.degree}, class of {sel.year}
-            </p>
-            <a className="btn btn-navy btn-block" href={`mailto:${sel.email}`}>
-              <Icon name="mail" size={16} /> {sel.email}
-            </a>
-            <ArrowLink to="/eboard">See the full board</ArrowLink>
-          </div>
-        </div>
+        <h2 className="h2" data-reveal>
+          Meet the 2026–27 <em>Eboard</em>
+        </h2>
+        <ul className="eb-cards" data-reveal="stagger">
+          {OFFICERS.map((o, n) => (
+            <li key={o.id} className="eb-card" style={{ '--i': n } as CSSProperties}>
+              {o.photo && <img src={o.photo} alt="" loading="lazy" />}
+              <div className="eb-card-body">
+                <h3>{o.name}</h3>
+                <p>{o.role}</p>
+              </div>
+              <a className="eb-card-mail" href={`mailto:${o.email}`} aria-label={`Email ${o.name}`} title={o.email}>
+                <Icon name="mail" size={16} />
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   )
@@ -288,10 +327,9 @@ function EboardPreview() {
 
 function Join() {
   return (
-    <section className="section bg-cream" id="join">
-      <div className="container join-grid">
+    <section className="section bg-cream join-section" id="join">
+      <div className="container join-grid" data-reveal>
         <div>
-          <Eyebrow>Join the familia</Eyebrow>
           <h2 className="h1">
             Get on the list. We'll take it from <em>there.</em>
           </h2>
@@ -316,9 +354,9 @@ function Join() {
 export function Supporters() {
   return (
     <section className="section supporters">
-      <div className="container">
+      <div className="container" data-reveal>
         <SectionHead
-          title="Thank you to our supporters"
+          title="Thank you to our Sponsors"
           aside={
             <p>
               Want to support the chapter? <Link to="/contact?topic=corporate" className="link-strong">Contact our Alumni &amp; Corporate Rep</Link>
@@ -326,9 +364,8 @@ export function Supporters() {
           }
         />
         <ul className="sponsor-row">
-          <li className="sponsor sponsor-lutron">LUTRON</li>
-          <li className="sponsor sponsor-consigli">
-            CONSIGLI <small>Est. 1905</small>
+          <li className="sponsor">
+            <img src={asset('images/GlobalFoundries-New-Logo.png.webp')} alt="GlobalFoundries" width={226} height={127} />
           </li>
         </ul>
       </div>
@@ -337,13 +374,14 @@ export function Supporters() {
 }
 
 export function Home() {
+  useReveal()
   return (
     <>
       <Hero />
       <NextStrip />
       <About />
       <WhySHPE />
-      <Steps />
+      <MonthCalendar />
       <Collage />
       <EboardPreview />
       <Join />
