@@ -1,10 +1,9 @@
 import { useState } from 'react'
-import { Icon, type IconName } from '../components/Icon'
+import { Icon } from '../components/Icon'
 import { PageHero } from '../components/ui'
-import { RESOURCES, type ResourceKind } from '../data/resources'
+import { RESOURCES } from '../data/resources'
 import { CONTACT, FORMS } from '../data/site'
 
-const KIND_ICON: Record<ResourceKind, IconName> = { Forms: 'form', Documents: 'file', Social: 'share' }
 const FILTERS = ['All', 'Forms', 'Documents', 'Social'] as const
 
 export function Resources() {
@@ -19,7 +18,6 @@ export function Resources() {
   return (
     <>
       <PageHero
-        eyebrow="Resources"
         title={
           <>
             All the essentials <em>in one place.</em>
@@ -52,10 +50,7 @@ export function Resources() {
             <ul className="resource-list">
               {visible.map((r) => (
                 <li key={r.title}>
-                  <a className="card resource" href={r.href} target={r.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
-                    <span className={`icon-badge kind-${r.kind.toLowerCase()}`}>
-                      <Icon name={KIND_ICON[r.kind]} size={18} />
-                    </span>
+                  <a className="resource" href={r.href} target={r.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
                     <span className="resource-text">
                       <strong>{r.title}</strong>
                       <small>{r.description}</small>
@@ -66,7 +61,7 @@ export function Resources() {
                 </li>
               ))}
               {visible.length === 0 && (
-                <li className="card empty">
+                <li className="empty">
                   <h3>No matches</h3>
                   <p>Try a different search, or email the Webmaster below.</p>
                 </li>
@@ -75,8 +70,8 @@ export function Resources() {
           </div>
 
           <aside className="events-side">
-            <div className="card-dark">
-              <p className="eyebrow is-light">Most used</p>
+            <div className="side-block">
+              <h3>Most used</h3>
               <div className="quick-links">
                 <a href={FORMS.resume} className="is-primary">
                   Submit your resume <Icon name="arrow" size={15} />
@@ -89,7 +84,7 @@ export function Resources() {
                 </a>
               </div>
             </div>
-            <div className="card">
+            <div className="side-block">
               <h3>Can't find something?</h3>
               <p className="muted">Our Webmaster keeps this page up to date.</p>
               <a className="link-strong" href={`mailto:${CONTACT.webmaster}`}>

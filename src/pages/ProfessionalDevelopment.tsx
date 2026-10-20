@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Icon, type IconName } from '../components/Icon'
-import { Eyebrow, PageHero, SectionHead } from '../components/ui'
+import { Icon } from '../components/Icon'
+import { PageHero, SectionHead } from '../components/ui'
 import { asset, EXTERNAL, FORMS } from '../data/site'
 
 const SCHOLARSHIPS = [
@@ -45,18 +45,18 @@ const CONFERENCES = [
   },
 ]
 
-const PREP: { title: string; body: string; icon: IconName }[] = [
-  { title: 'Career fairs', body: 'Meet recruiters at events like the NSBE/SHPE Career Fair and at the SHPE National Convention.', icon: 'briefcase' },
-  { title: 'Resume and interview workshops', body: 'Sharpen your resume and practice the interview before it counts.', icon: 'form' },
-  { title: 'Professional panels', body: 'Hear from engineers and alumni about what working in industry and research is really like.', icon: 'users' },
+const PREP: { title: string; body: string }[] = [
+  { title: 'Career fairs', body: 'Meet recruiters at events like the NSBE/SHPE Career Fair and at the SHPE National Convention.' },
+  { title: 'Resume and interview workshops', body: 'Sharpen your resume and practice the interview before it counts.' },
+  { title: 'Professional panels', body: 'Hear from engineers and alumni about what working in industry and research is really like.' },
 ]
 
 function Scholarship({ s }: { s: (typeof SCHOLARSHIPS)[number] }) {
   const [open, setOpen] = useState(false)
   return (
-    <article className="card scholarship">
-      <span className="tag tag-navy">{s.org}</span>
+    <article className="scholarship">
       <h3>{s.name}</h3>
+      <p className="scholarship-org">{s.org}</p>
       <p>{s.body}</p>
       <button className="disclosure" aria-expanded={open} onClick={() => setOpen(!open)}>
         What you'll need <Icon name="plus" size={16} />
@@ -83,7 +83,6 @@ export function ProfessionalDevelopment() {
     <>
       <PageHero
         crumbs={[{ to: '/membershpe', label: 'MemberSHPE' }]}
-        eyebrow="Professional development"
         title={
           <>
             Pathways to <em>success.</em>
@@ -102,7 +101,7 @@ export function ProfessionalDevelopment() {
 
       <section className="section">
         <div className="container">
-          <SectionHead eyebrow="Scholarships" title={<>Funding for your <em>degree</em></>} />
+          <SectionHead title={<>Funding for your <em>degree</em></>} />
           <div className="grid-2">
             {SCHOLARSHIPS.map((s) => (
               <Scholarship key={s.name} s={s} />
@@ -114,7 +113,6 @@ export function ProfessionalDevelopment() {
       <section className="section bg-navy" id="conferences">
         <div className="container">
           <SectionHead
-            eyebrow="Conferences"
             title={<>A conference every <em>season</em></>}
             aside={<p>Network with SHPE members from other chapters, meet recruiters at the career fair, and build skills in corporate-led workshops.</p>}
           />
@@ -126,9 +124,8 @@ export function ProfessionalDevelopment() {
               </button>
             ))}
           </div>
-          <div className="card conf-panel" role="tabpanel">
+          <div className="conf-panel" role="tabpanel">
             <div>
-              <Eyebrow>Every {c.season.toLowerCase()}</Eyebrow>
               <h3 className="h2">{c.title}</h3>
               <p>{c.body}</p>
               <p className="strong">{c.note}</p>
@@ -145,13 +142,10 @@ export function ProfessionalDevelopment() {
 
       <section className="section">
         <div className="container">
-          <SectionHead eyebrow="Career prep" title={<>Ready for the <em>room</em></>} />
+          <SectionHead title={<>Ready for the <em>room</em></>} />
           <div className="grid-3">
             {PREP.map((p) => (
-              <div key={p.title} className="card">
-                <span className="icon-badge">
-                  <Icon name={p.icon} size={20} />
-                </span>
+              <div key={p.title} className="plain-item">
                 <h3>{p.title}</h3>
                 <p className="muted">{p.body}</p>
               </div>

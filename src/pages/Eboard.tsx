@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Icon } from '../components/Icon'
-import { Avatar, Eyebrow, PageHero, SectionHead } from '../components/ui'
+import { Avatar, PageHero, SectionHead } from '../components/ui'
 import { COMMITTEES, OFFICERS, officer } from '../data/eboard'
 import { asset, FORMS } from '../data/site'
 
@@ -12,7 +12,6 @@ export function Eboard() {
   return (
     <>
       <PageHero
-        eyebrow="Leadership · 2026–27"
         title={
           <>
             Meet the people who <em>run the chapter.</em>
@@ -24,14 +23,14 @@ export function Eboard() {
 
       <section className="section">
         <div className="container">
-          <SectionHead eyebrow="Executive Board" title={<>Meet our Executive <em>Board</em></>} />
+          <SectionHead title={<>Meet our Executive <em>Board</em></>} />
           <ul className="officers">
             {OFFICERS.map((o) => (
-              <li key={o.id} className="card officer">
+              <li key={o.id} className="officer">
                 <div className="officer-photo">{o.photo ? <img src={o.photo} alt={o.name} loading="lazy" /> : <Avatar name={o.name} size="lg" />}</div>
                 <div className="officer-body">
-                  <Eyebrow>{o.role}</Eyebrow>
                   <h3>{o.name}</h3>
+                  <p className="officer-role">{o.role}</p>
                   <p className="muted small">
                     {o.degree} · Class of {o.year}
                   </p>
@@ -55,7 +54,6 @@ export function Eboard() {
       <section className="section bg-navy" id="committees">
         <div className="container">
           <SectionHead
-            eyebrow="Committees"
             title={<>Help make it <em>happen</em></>}
             aside={
               <a href={FORMS.committee} className="btn btn-primary">
@@ -75,8 +73,7 @@ export function Eboard() {
                 </button>
               ))}
             </div>
-            <div className="card committee-panel" role="tabpanel">
-              <Eyebrow>Committee</Eyebrow>
+            <div className="committee-panel" role="tabpanel">
               <h3 className="h2">{c.name}</h3>
               <p className="lead-dark">{c.description}</p>
               <div className="works-with">

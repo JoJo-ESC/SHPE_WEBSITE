@@ -12,7 +12,7 @@ import { Resources } from './pages/Resources'
 
 function NotFound() {
   return (
-    <PageHero eyebrow="404" title={<>This page took a <em>wrong turn.</em></>} lead="The link may be old. Let's get you back home.">
+    <PageHero title={<>This page took a <em>wrong turn.</em></>} lead="The link may be old. Let's get you back home.">
       <Link to="/" className="btn btn-primary">
         Back to home
       </Link>
