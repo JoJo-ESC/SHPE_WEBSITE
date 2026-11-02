@@ -1,7 +1,6 @@
 import { Link, Route, Routes } from 'react-router-dom'
 import { Layout } from './components/Layout'
 import { PageHero } from './components/ui'
-import { Contact } from './pages/Contact'
 import { Eboard } from './pages/Eboard'
 import { Events } from './pages/Events'
 import { Home } from './pages/Home'
@@ -31,7 +30,6 @@ export default function App() {
         <Route path="events" element={<Events />} />
         <Route path="eboard" element={<Eboard />} />
         <Route path="resources" element={<Resources />} />
-        <Route path="contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

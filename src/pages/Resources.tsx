@@ -1,102 +1,57 @@
 import { useState } from 'react'
-import { Icon, type IconName } from '../components/Icon'
-import { PageHero } from '../components/ui'
-import { RESOURCES, type ResourceKind } from '../data/resources'
-import { CONTACT, FORMS } from '../data/site'
-
-const KIND_ICON: Record<ResourceKind, IconName> = { Forms: 'form', Documents: 'file', Social: 'share' }
-const FILTERS = ['All', 'Forms', 'Documents', 'Social'] as const
+import { Icon } from '../components/Icon'
+import { useReveal } from '../components/useReveal'
+import { RESOURCE_GROUPS, RESOURCES } from '../data/resources'
+import { CONTACT } from '../data/site'
 
 export function Resources() {
+  useReveal()
   const [query, setQuery] = useState('')
-  const [filter, setFilter] = useState<(typeof FILTERS)[number]>('All')
 
   const q = query.trim().toLowerCase()
-  const visible = RESOURCES.filter(
-    (r) => (filter === 'All' || r.kind === filter) && (!q || `${r.title} ${r.description}`.toLowerCase().includes(q)),
-  )
+  const matches = RESOURCES.filter((r) => !q || `${r.title} ${r.description} ${r.tag}`.toLowerCase().includes(q))
+  const groups = RESOURCE_GROUPS.map((g) => ({ ...g, items: matches.filter((r) => r.kind === g.kind) })).filter((g) => g.items.length > 0)
 
   return (
     <>
-      <PageHero
-        eyebrow="Resources"
-        title={
-          <>
-            All the essentials <em>in one place.</em>
-          </>
-        }
-        lead="Forms, documents and links for members, all online and paperless."
-      >
-        <label className="search">
-          <Icon name="search" size={18} />
-          <span className="sr-only">Search resources</span>
-          <input type="search" placeholder="Search forms, documents and links" value={query} onChange={(e) => setQuery(e.target.value)} />
-        </label>
-      </PageHero>
+      <section className="res-hero">
+        <div className="container" data-reveal>
+          <h1 className="res-title">Important Links, Documents, Social Media</h1>
+          <label className="search res-search">
+            <Icon name="search" size={16} />
+            <span className="sr-only">Search resources</span>
+            <input type="search" placeholder="Search forms, documents and links" value={query} onChange={(e) => setQuery(e.target.value)} />
+          </label>
+        </div>
+      </section>
 
-      <section className="section bg-mist">
-        <div className="container resources-layout">
-          <div>
-            <div className="events-toolbar">
-              <div className="chips">
-                {FILTERS.map((f) => (
-                  <button key={f} className={`chip ${filter === f ? 'is-active' : ''}`} aria-pressed={filter === f} onClick={() => setFilter(f)}>
-                    {f}
-                  </button>
+      <section className="section">
+        <div className="container" data-reveal>
+          {groups.map((g) => (
+            <div key={g.kind} className="res-group">
+              <h2 className="h2">{g.title}</h2>
+              <p className="res-intro">{g.intro}</p>
+              <ul className="res-grid">
+                {g.items.map((r) => (
+                  <li key={r.href + r.title}>
+                    <a className="res-link" href={r.href} target={r.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
+                      <Icon name={r.icon} size={44} className="res-icon" />
+                      <h3>{r.title}</h3>
+                      <p>{r.description}</p>
+                      <span className="res-tag">{r.tag}</span>
+                    </a>
+                  </li>
                 ))}
-              </div>
-              <p className="muted small">
-                {visible.length} {visible.length === 1 ? 'resource' : 'resources'}
-              </p>
+              </ul>
             </div>
-            <ul className="resource-list">
-              {visible.map((r) => (
-                <li key={r.title}>
-                  <a className="card resource" href={r.href} target={r.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
-                    <span className={`icon-badge kind-${r.kind.toLowerCase()}`}>
-                      <Icon name={KIND_ICON[r.kind]} size={18} />
-                    </span>
-                    <span className="resource-text">
-                      <strong>{r.title}</strong>
-                      <small>{r.description}</small>
-                    </span>
-                    <span className="resource-tag">{r.tag}</span>
-                    <Icon name="external" size={16} className="resource-go" />
-                  </a>
-                </li>
-              ))}
-              {visible.length === 0 && (
-                <li className="card empty">
-                  <h3>No matches</h3>
-                  <p>Try a different search, or email the Webmaster below.</p>
-                </li>
-              )}
-            </ul>
-          </div>
-
-          <aside className="events-side">
-            <div className="card-dark">
-              <p className="eyebrow is-light">Most used</p>
-              <div className="quick-links">
-                <a href={FORMS.resume} className="is-primary">
-                  Submit your resume <Icon name="arrow" size={15} />
-                </a>
-                <a href={FORMS.reimbursement}>
-                  Get reimbursed <Icon name="arrow" size={15} />
-                </a>
-                <a href={FORMS.committee}>
-                  Apply to a committee <Icon name="arrow" size={15} />
-                </a>
-              </div>
-            </div>
-            <div className="card">
-              <h3>Can't find something?</h3>
-              <p className="muted">Our Webmaster keeps this page up to date.</p>
-              <a className="link-strong" href={`mailto:${CONTACT.webmaster}`}>
-                {CONTACT.webmaster}
-              </a>
-            </div>
-          </aside>
+          ))}
+          {groups.length === 0 && <p className="res-empty">Nothing matches “{query.trim()}”. Try another search.</p>}
+          <p className="res-help">
+            Can't find something? Our Webmaster keeps this page up to date:{' '}
+            <a className="link-strong" href={`mailto:${CONTACT.webmaster}`}>
+              {CONTACT.webmaster}
+            </a>
+          </p>
         </div>
       </section>
     </>

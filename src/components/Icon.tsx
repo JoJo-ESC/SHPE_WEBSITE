@@ -2,6 +2,9 @@ const PATHS = {
   arrow: <path d="M5 12h14M13 6l6 6-6 6" />,
   chevron: <path d="M9 6l6 6-6 6" />,
   chevronLeft: <path d="M15 6l-6 6 6 6" />,
+  chevronDown: <path d="M6 9l6 6 6-6" />,
+  pause: <path d="M9 6v12M15 6v12" />,
+  play: <path d="M8 5.5v13l10.5-6.5z" />,
   external: <path d="M7 17L17 7M9 7h8v8" />,
   plus: <path d="M12 5v14M5 12h14" />,
   check: <path d="M5 12.5l4.5 4.5L19 7.5" />,
@@ -61,6 +64,31 @@ const PATHS = {
     <>
       <path d="M14 3.5H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5z" />
       <path d="M14 3.5v5h5" />
+    </>
+  ),
+  image: (
+    <>
+      <rect x="3.5" y="4.5" width="17" height="15" rx="2" />
+      <circle cx="9" cy="10" r="1.6" />
+      <path d="M20.5 16l-5-5-8 8.5" />
+    </>
+  ),
+  receipt: (
+    <>
+      <path d="M6 3.5h12v17l-2-1.3-2 1.3-2-1.3-2 1.3-2-1.3-2 1.3z" />
+      <path d="M9 8.5h6M9 12h6M9 15.5h3.5" />
+    </>
+  ),
+  home: (
+    <>
+      <path d="M4 11l8-6.5 8 6.5" />
+      <path d="M6 9.5v10h12v-10M10 19.5v-5h4v5" />
+    </>
+  ),
+  book: (
+    <>
+      <path d="M6 5a1.5 1.5 0 0 1 1.5-1.5h11v17h-11A1.5 1.5 0 0 1 6 19z" />
+      <path d="M6 17.5h12.5M10 7.5h5" />
     </>
   ),
   share: (

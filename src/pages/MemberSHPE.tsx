@@ -1,156 +1,157 @@
-import { useState } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLink, CheckList, Eyebrow, PageHero, SectionHead } from '../components/ui'
-import { asset } from '../data/site'
+import { Icon } from '../components/Icon'
+import { PageHero, SectionHead } from '../components/ui'
+import { prefersMotion, useAutoplay, useLoop } from '../components/useLoop'
+import { useReveal } from '../components/useReveal'
+import { asset, OUTREACH_PAGE_LIVE } from '../data/site'
 
+// SHPE National's five development pillars, one slide each
 const PILLARS = [
   {
     name: 'Community Outreach',
-    summary: 'Give back by sharing STEM with underrepresented students in Troy and beyond.',
-    points: ['K-12 outreach events throughout the year', 'SHPE Jr. programs with local high school faculty', 'Our annual Outreach Weekend'],
-    cta: { label: 'See Outreach Weekend', to: '/membershpe/outreach-weekend' },
+    text: 'Share STEM with students in Troy and beyond through local outreach programs and social awareness events.',
+    photo: asset('images/img-0493_orig.jpg'),
+    alt: 'Members holding flags from across Latin America',
   },
   {
     name: 'Leadership',
-    summary: 'Step up and help run the chapter, from committee member to Executive Board officer.',
-    points: ['Seven committees that plan our programs', 'Leadership conferences like NILA and RLDC', 'Real responsibility running events and budgets'],
-    cta: { label: 'Explore committees', to: '/eboard#committees' },
+    text: 'Build leadership and teamwork skills by helping run the chapter, and represent us at the SHPE Convention, NILA and ETLC.',
+    photo: asset('images/eboard.jpg'),
+    alt: 'The Executive Board in front of the chapter banner',
   },
   {
     name: 'Professional',
-    summary: 'Get career-ready with workshops, recruiters and a network that opens doors.',
-    points: ['Career fairs and the SHPE National Convention', 'Resume and interview workshops', 'Resume sharing with company partners'],
-    cta: { label: 'Professional development', to: '/membershpe/professional-development' },
+    text: 'Get your resume in front of companies and build a local and national network through workshops and career fairs.',
+    photo: asset('images/d5213e29-8ae1-4fc0-a685-af4282694c0b_orig.jpg'),
+    alt: 'Chapter members at the SHPE National Convention',
   },
   {
     name: 'Academic',
-    summary: 'Succeed in your classes alongside people who have taken them before.',
-    points: ['Weekly Study Jams', 'MentorSHPE pairing with upperclassmen', 'Research and grad school guidance'],
-    cta: { label: 'See Study Jams', to: '/events' },
+    text: 'Get through tough classes together, qualify for SHPE and company scholarships, and explore research and grad school.',
+    photo: asset('images/img-0172_orig.jpg'),
+    alt: 'Members working together at a table',
   },
   {
     name: 'Chapter Development',
-    summary: 'Build a chapter that is stronger every year than the one we inherited.',
-    points: ['General body meetings and socials', 'Fundraising for conferences and events', 'Alumni and corporate relationships'],
-    cta: { label: 'Meet the Eboard', to: '/eboard' },
+    text: 'Plan our meetings, socials and fundraisers, and leave the chapter stronger than you found it.',
+    photo: asset('images/img-9949_orig.jpg'),
+    alt: 'Members gathered outside at the chapter BBQ',
   },
 ]
 
 const WAYS = [
-  { title: 'Upcoming events', body: 'Regular general body meetings, socials and networking events. The easiest way to meet people and stay involved.', link: 'See the calendar', to: '/events' },
-  { title: 'Professional development', body: 'Career fairs, interview and resume workshops, and professional panels that get you ready for the real thing.', link: 'Explore', to: '/membershpe/professional-development' },
-  { title: 'Outreach', body: 'Serve underrepresented high school students through K-12 events, SHPE Jr. and our annual Outreach Weekend.', link: 'Get involved', to: '/membershpe/outreach-weekend' },
+  {
+    title: 'Professional development',
+    body: 'Scholarships, conferences, career fairs and resume workshops that get you ready for the real thing.',
+    to: '/membershpe/professional-development',
+  },
+  {
+    title: 'Outreach Weekend',
+    body: 'Serve underrepresented high school students through K-12 events, SHPE Jr. and our annual Outreach Weekend.',
+    to: OUTREACH_PAGE_LIVE ? '/membershpe/outreach-weekend' : undefined,
+  },
 ]
 
-const BENEFITS = [
-  'Build leadership and teamwork skills for professional environments',
-  'Join local community outreach programs',
-  'Attend national conferences: the SHPE Convention, NILA and ETLC',
-  'Submit your resume to companies',
-  'Take part in professional development and social awareness events',
-  'Become eligible for SHPE National and company scholarships',
-  'Get exposure to companies and build local and national networks',
-  'Learn about research and grad school opportunities at top STEM universities',
-]
+function Pillars() {
+  const { copies, pos, animate, step, settle, swipe } = useLoop(PILLARS)
+  // Plays on its own unless the visitor prefers reduced motion; the pause button stops it
+  const [playing, setPlaying] = useState(prefersMotion)
+  const restartTimer = useAutoplay(step, playing)
+
+  const go = (dir: 1 | -1) => {
+    step(dir)
+    restartTimer()
+  }
+
+  return (
+    <section className="section bg-mist">
+      <div className="container" data-reveal>
+        <SectionHead
+          title={<>How we develop our <em>members</em></>}
+          aside={
+            <div className="pillar-arrows">
+              <button
+                className="prev-arrow pillar-play"
+                aria-label={playing ? 'Pause slideshow' : 'Play slideshow'}
+                onClick={() => setPlaying(!playing)}
+              >
+                <Icon name={playing ? 'pause' : 'play'} size={22} />
+              </button>
+              <button className="prev-arrow" aria-label="Previous pillar" onClick={() => go(-1)}>
+                <Icon name="chevronLeft" size={26} />
+              </button>
+              <button className="prev-arrow" aria-label="Next pillar" onClick={() => go(1)}>
+                <Icon name="chevron" size={26} />
+              </button>
+            </div>
+          }
+        />
+        <div className="pillar-viewport" {...swipe}>
+          <ul
+            className={`pillar-track ${animate ? 'is-animated' : ''}`}
+            style={{ '--pos': pos } as CSSProperties}
+            onTransitionEnd={settle}
+            onTransitionCancel={settle}
+          >
+            {copies.map(({ item: pl, copy, key }, n) => (
+              <li key={key} className={n === pos ? 'is-active' : ''} aria-hidden={copy !== 1 || undefined}>
+                <figure className="pillar-slide">
+                  <img src={pl.photo} alt={copy === 1 ? pl.alt : ''} draggable={false} loading="lazy" />
+                  <figcaption>
+                    <h3>{pl.name}</h3>
+                    <p>{pl.text}</p>
+                  </figcaption>
+                </figure>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  )
+}
 
 export function MemberSHPE() {
-  const [active, setActive] = useState(0)
-  const p = PILLARS[active]
-
+  useReveal()
   return (
     <>
       <PageHero
-        eyebrow="MemberSHPE"
         title={
           <>
             Being a member means <em>more than a meeting.</em>
           </>
         }
         lead="Everything we do is built around SHPE National's five development pillars. Joining means joining a strong organization, backed by strong companies."
-        image={asset('images/gbm.jpg')}
+        photos={[
+          asset('images/img-0165_orig.jpg'),
+          asset('images/301e251a-694c-4c7f-8ecd-8cedb0176ad1_orig.jpg'),
+          asset('images/copy-of-dsc05820_orig.jpg'),
+        ]}
       />
 
-      <section className="section">
-        <div className="container">
-          <SectionHead eyebrow="The five pillars" title={<>How we develop our <em>members</em></>} />
-          <div className="pillars">
-            <div className="pillar-tabs" role="tablist" aria-label="Development pillars">
-              {PILLARS.map((pl, n) => (
-                <button key={pl.name} role="tab" aria-selected={n === active} className={n === active ? 'is-active' : ''} onClick={() => setActive(n)}>
-                  <span className="pillar-num">{n + 1}</span>
-                  {pl.name}
-                </button>
-              ))}
-            </div>
-            <div className="card pillar-panel" role="tabpanel">
-              <Eyebrow>
-                Pillar {active + 1} of {PILLARS.length}
-              </Eyebrow>
-              <h3 className="h2">{p.name}</h3>
-              <p className="lead-dark">{p.summary}</p>
-              <CheckList items={p.points} />
-              <Link to={p.cta.to} className="btn btn-navy">
-                {p.cta.label}
-              </Link>
-            </div>
+      <section className="section ways-section">
+        <div className="container" data-reveal>
+          <div className="ways">
+            {WAYS.map((w) =>
+              w.to ? (
+                <Link key={w.title} to={w.to} className="way">
+                  <h3>{w.title}</h3>
+                  <p>{w.body}</p>
+                </Link>
+              ) : (
+                <div key={w.title} className="way">
+                  <h3>{w.title}</h3>
+                  <p>{w.body}</p>
+                  <p className="way-soon">Page coming soon</p>
+                </div>
+              ),
+            )}
           </div>
         </div>
       </section>
 
-      <section className="section bg-navy">
-        <div className="container">
-          <SectionHead eyebrow="Where to start" title={<>Three ways <em>in</em></>} />
-          <div className="grid-3">
-            {WAYS.map((w, n) => (
-              <div key={w.title} className="card-dark">
-                <span className="card-num">0{n + 1}</span>
-                <h3>{w.title}</h3>
-                <p>{w.body}</p>
-                <ArrowLink to={w.to} light>
-                  {w.link}
-                </ArrowLink>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <SectionHead
-            eyebrow="Member benefits"
-            title={<>We promise you the <em>best.</em></>}
-            aside={<p>Here's what being part of SHPE-Rensselaer opens up for you.</p>}
-          />
-          <ol className="benefits">
-            {BENEFITS.map((b, n) => (
-              <li key={b} className="card">
-                <span className="card-num">0{n + 1}</span>
-                <p>{b}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section className="section bg-cream">
-        <div className="container cta-band">
-          <div>
-            <h2 className="h1">
-              Ready to join the <em>familia?</em>
-            </h2>
-            <p className="lead-dark">Get on the mailing list, or go further and help run the chapter by joining a committee.</p>
-          </div>
-          <div className="actions">
-            <Link to="/#join" className="btn btn-navy">
-              Join the mailing list
-            </Link>
-            <Link to="/eboard#committees" className="btn btn-outline">
-              Explore committees
-            </Link>
-          </div>
-        </div>
-      </section>
+      <Pillars />
     </>
   )
 }

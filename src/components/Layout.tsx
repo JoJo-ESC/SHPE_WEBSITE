@@ -9,6 +9,7 @@ function Logo() {
   return (
     <Link to="/" className="logo" aria-label="SHPE-Rensselaer home">
       <img src={asset('images/logo-shpe-rpi.png')} alt="" width={161} height={35} />
+      <span className="logo-text">Rensselaer</span>
     </Link>
   )
 }
@@ -21,11 +22,27 @@ function Nav() {
       <div className="container nav-inner">
         <Logo />
         <nav className="nav-links" aria-label="Main" onClick={(e) => (e.target as HTMLElement).closest('a') && setOpen(false)}>
-          {NAV.map((item) => (
-            <NavLink key={item.to} to={item.to}>
-              {item.label}
-            </NavLink>
-          ))}
+          {NAV.map((item) =>
+            item.children ? (
+              // Opens on hover or keyboard focus; on phones the sub-links are listed under it
+              <div key={item.to} className="nav-item has-menu">
+                <NavLink to={item.to}>
+                  {item.label} <Icon name="chevronDown" size={14} className="nav-caret" />
+                </NavLink>
+                <div className="nav-menu">
+                  {item.children.map((c) => (
+                    <NavLink key={c.to} to={c.to} end>
+                      {c.label}
+                    </NavLink>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <NavLink key={item.to} to={item.to}>
+                {item.label}
+              </NavLink>
+            ),
+          )}
           <Link to="/#join" className="btn btn-light btn-sm nav-cta">
             Join us
           </Link>
@@ -59,7 +76,6 @@ export function SocialLinks({ className = '' }: { className?: string }) {
 function Footer() {
   return (
     <footer className="footer">
-      <div className="flag-rule" aria-hidden="true" />
       <div className="container footer-grid">
         <div>
           <div className="footer-brand">
