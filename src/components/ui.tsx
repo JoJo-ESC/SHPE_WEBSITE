@@ -9,17 +9,20 @@ export function PageHero({
   lead,
   crumbs,
   children,
-  image,
+  photos,
+  flip,
 }: {
   title: ReactNode
   lead?: ReactNode
   crumbs?: { to: string; label: string }[]
   children?: ReactNode
-  image?: string
+  /** Three photos, staggered beside the copy */
+  photos?: string[]
+  /** Copy on the left and photos on the right */
+  flip?: boolean
 }) {
   return (
-    <section className={`page-hero ${image ? 'has-image' : ''}`}>
-      <div className="hero-rings" aria-hidden="true" />
+    <section className={`page-hero ${photos ? 'has-collage' : ''} ${flip ? 'is-flipped' : ''}`}>
       <div className="container page-hero-inner">
         <div className="page-hero-copy">
           {crumbs && (
@@ -35,14 +38,25 @@ export function PageHero({
           {lead && <p className="lead">{lead}</p>}
           {children && <div className="actions">{children}</div>}
         </div>
-        {image && (
-          <div className="page-hero-photo">
-            <img src={image} alt="" />
+        {photos && (
+          <div className="hero-collage" aria-hidden="true">
+            {photos.map((src) => (
+              <img key={src} src={src} alt="" />
+            ))}
           </div>
         )}
       </div>
-      <div className="flag-rule" aria-hidden="true" />
     </section>
+  )
+}
+
+/** Stand-in for a photo or flyer that hasn't been added yet */
+export function Placeholder({ label, className = '' }: { label: string; className?: string }) {
+  return (
+    <div className={`placeholder ${className}`} role="img" aria-label={`${label} (coming soon)`}>
+      <Icon name="image" size={34} />
+      <span>{label}</span>
+    </div>
   )
 }
 

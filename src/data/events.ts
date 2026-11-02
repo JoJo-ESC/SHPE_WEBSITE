@@ -1,51 +1,46 @@
-export type Category = 'General body' | 'Academic' | 'Career' | 'Community'
+import { LIVE_CALENDAR } from './googleCalendar'
+import { asset } from './site'
 
-export type ChapterEvent = {
-  title: string
-  category: Category
-  time: string
-  week: string // heading the event is grouped under
-  // A single day shows weekday + day; a range shows "WEEK OF" + range
-  day?: { weekday: string; date: string }
-  range?: string
-  month: string
-}
+// Month grids for the calendar on the home and Events pages. `days` lists
+// every date an event runs in the month. A "\n" in a title is a line break in
+// the grid and a space everywhere else.
+export type CalendarEntry = { days: number[]; title: string; time: string }
+export type MonthCalendar = { year: number; month: number; entries: CalendarEntry[] }
 
-export const MONTHS = ['September', 'October'] as const
-export type Month = (typeof MONTHS)[number]
-
-export const EVENTS: ChapterEvent[] = [
-  { month: 'September', week: 'Week of Sept 1', day: { weekday: 'Tue', date: '1' }, category: 'General body', title: 'GBM 1', time: '6:30–9 PM' },
-  { month: 'September', week: 'Week of Sept 6', range: '6–12', category: 'Career', title: 'GlobalFoundries', time: '6–7 PM' },
-  { month: 'September', week: 'Week of Sept 13', range: '13–19', category: 'Community', title: 'MentorSHPE Mentor Matching', time: '12–2 PM' },
-  { month: 'September', week: 'Week of Sept 13', range: '13–19', category: 'General body', title: 'GBM 2', time: '6:30–9 PM' },
-  { month: 'September', week: 'Week of Sept 13', range: '13–19', category: 'Academic', title: 'Study Jam 1', time: '7–9 PM' },
-  { month: 'September', week: 'Week of Sept 20', range: '20–26', category: 'Career', title: 'NSBE / SHPE Career Fair', time: 'Time TBA' },
-  { month: 'September', week: 'Week of Sept 20', range: '20–26', category: 'Community', title: 'SHPEtinas Cafecitos', time: '12–2 PM' },
-  { month: 'September', week: 'Week of Sept 20', range: '20–26', category: 'Academic', title: 'Study Jam 2', time: '7–9 PM' },
-  { month: 'September', week: 'Week of Sept 27', range: '27–30', category: 'Academic', title: 'Study Jam 3', time: '7–9 PM' },
+// Typed-in months, used only until the Google Calendar is connected (see README).
+// In order. A month with no entries yet shows as "coming soon" on the Events page.
+export const CALENDARS: MonthCalendar[] = [
+  {
+    year: 2026,
+    month: 8, // 0-based: September
+    entries: [
+      { days: [3], title: 'GBM 1', time: '6:30 - 9 PM' },
+      // Zero-width space lets the name wrap after "Global" in the narrow cell
+      { days: [10], title: 'Global​Foundries', time: '6 - 7 PM' },
+      { days: [14], title: 'Study Jam 1', time: '7 - 9 PM' },
+      { days: [17], title: 'GBM 2', time: '6:30 - 9 PM' },
+      { days: [19], title: 'MentorSHPE Mentor Matching', time: '12 - 2 PM' },
+      { days: [20], title: 'SHPEtinas Cafecitos', time: '12 - 2 PM' },
+      { days: [21], title: 'Study Jam 2', time: '7 - 9 PM' },
+      { days: [24, 25], title: 'NSBE SHPE\nCareer Fair', time: '' },
+      { days: [28], title: 'Study Jam 3', time: '7 - 9 PM' },
+    ],
+  },
+  { year: 2026, month: 9, entries: [] }, // October
 ]
 
-export const CATEGORIES: Category[] = ['General body', 'Academic', 'Career', 'Community']
+// The month the home and Events pages open on: this month from Google Calendar,
+// or else the latest typed-in month that has events
+const latestTyped = CALENDARS.findLast((c) => c.entries.length > 0) ?? CALENDARS[0]
+export const START_MONTH = LIVE_CALENDAR
+  ? { year: new Date().getFullYear(), month: new Date().getMonth() }
+  : { year: latestTyped.year, month: latestTyped.month }
 
-// The month grid on the home page. `days` lists every date an event runs;
-// multi-day events must stay within one week row. A "\n" in a title is a line
-// break in the grid and a space everywhere else.
-export type CalendarEntry = { days: number[]; title: string; time: string }
-
-export const HOME_CALENDAR: { year: number; month: number; entries: CalendarEntry[] } = {
-  year: 2026,
-  month: 8, // 0-based: September
-  entries: [
-    { days: [3], title: 'GBM 1', time: '6:30 - 9 PM' },
-    // Zero-width space lets the name wrap after "Global" in the narrow cell
-    { days: [10], title: 'Global​Foundries', time: '6 - 7 PM' },
-    { days: [14], title: 'Study Jam 1', time: '7 - 9 PM' },
-    { days: [17], title: 'GBM 2', time: '6:30 - 9 PM' },
-    { days: [19], title: 'MentorSHPE Mentor Matching', time: '12 - 2 PM' },
-    { days: [20], title: 'SHPEtinas Cafecitos', time: '12 - 2 PM' },
-    { days: [21], title: 'Study Jam 2', time: '7 - 9 PM' },
-    { days: [24, 25], title: 'NSBE SHPE\nCareer Fair', time: '' },
-    { days: [28], title: 'Study Jam 3', time: '7 - 9 PM' },
-  ],
-}
+// "Previous Events" carousel on the Events page. `label` curves along the bottom of the photo.
+export const PAST_EVENTS: { label: string; photo: string; alt: string }[] = [
+  { label: 'BBQ', photo: asset('images/img-9903_orig.jpg'), alt: 'Members grilling at the chapter BBQ' },
+  { label: 'Event', photo: asset('images/img-9801_orig.jpg'), alt: 'Members hanging out in a student lounge' }, // TODO: event name
+  { label: 'Event', photo: asset('images/cooking.jpg'), alt: 'A member frying food at a chapter social' }, // TODO: event name
+  { label: 'GBM', photo: asset('images/img-0165_orig.jpg'), alt: 'The Eboard in front of the SHPE banner at a general body meeting' },
+  { label: 'Event', photo: asset('images/img-0493_orig.jpg'), alt: 'Members holding flags from across Latin America' }, // TODO: event name
+]

@@ -10,6 +10,8 @@ export const CONTACT = {
   addressLine1: '110 8th St',
   addressLine2: 'Troy, NY 12180',
   campus: 'Rensselaer Polytechnic Institute',
+  outreachEmail: 'shpe.outreach.rpi@gmail.com',
+  outreachPhone: '(518) 285-0023',
   mapUrl: 'https://www.google.com/maps/search/?api=1&query=Rensselaer+Polytechnic+Institute+110+8th+St+Troy+NY',
 }
 
@@ -25,8 +27,9 @@ export const FORMS = {
   resume: '#', // TODO: Google Form
   reimbursement: '#', // TODO: Google Form
   committee: '#', // TODO: Google Form
-  outreachRegistration: '#', // TODO: Google Form
-  outreachHost: '#', // TODO: Google Form
+  // 2026 Outreach Weekend links from the flyers. TODO: swap in the 2027 links when they're out
+  outreachRegistration: 'https://bit.ly/SHPE-Outreach-26',
+  outreachHost: 'https://bit.ly/SHPE-Oureach-Host-26',
 }
 
 export const DOCS = {
@@ -38,13 +41,28 @@ export const DOCS = {
 export const EXTERNAL = {
   national: 'https://shpe.org',
   scholarshpe: 'https://shpe.org/students/scholarships/',
-  henaac: 'https://greatmindsinstem.org/henaac/',
+  henaac: 'https://www.greatmindsinstem.org',
+  nila: 'https://shpe.org/engage/events/nila/',
 }
 
-export const NAV = [
-  { to: '/membershpe', label: 'MemberSHPE' },
+// The Outreach Weekend page is kept out of menus while it's reworked; it can still be
+// previewed at /membershpe/outreach-weekend. Set to true to add its MemberSHPE menu
+// link and the links to it on Home and Overview.
+export const OUTREACH_PAGE_LIVE = true
+
+export type NavItem = { to: string; label: string; children?: { to: string; label: string }[] }
+
+export const NAV: NavItem[] = [
+  {
+    to: '/membershpe',
+    label: 'MemberSHPE',
+    children: [
+      { to: '/membershpe', label: 'Overview' },
+      { to: '/membershpe/professional-development', label: 'Professional development' },
+      ...(OUTREACH_PAGE_LIVE ? [{ to: '/membershpe/outreach-weekend', label: 'Outreach Weekend' }] : []),
+    ],
+  },
   { to: '/events', label: 'Events' },
   { to: '/eboard', label: 'Eboard' },
   { to: '/resources', label: 'Resources' },
-  { to: '/contact', label: 'Contact' },
 ]

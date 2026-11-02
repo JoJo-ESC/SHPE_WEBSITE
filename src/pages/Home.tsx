@@ -1,12 +1,14 @@
 import { useEffect, useState, type CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
+import { CalendarCard } from '../components/CalendarCard'
 import { Icon, type IconName } from '../components/Icon'
 import { SocialLinks } from '../components/Layout'
 import { CheckList, SectionHead, SignupForm } from '../components/ui'
+import { useMonthCalendar } from '../components/useMonthCalendar'
 import { useReveal } from '../components/useReveal'
-import { OFFICERS } from '../data/eboard'
-import { HOME_CALENDAR } from '../data/events'
-import { asset } from '../data/site'
+import { OFFICERS, officer } from '../data/eboard'
+import { START_MONTH } from '../data/events'
+import { asset, CONTACT, OUTREACH_PAGE_LIVE } from '../data/site'
 
 // `position` overrides the default crop (CSS object-position) for photos framed differently
 const SLIDES: { src: string; alt: string; position?: string }[] = [
@@ -162,7 +164,7 @@ function About() {
 
 const PILLARS: { title: string; body: string; icon: IconName; to: string }[] = [
   { title: 'Professional development', body: "Build the skills, confidence and connections that turn an RPI degree into a career you're proud of.", icon: 'briefcase', to: '/membershpe/professional-development' },
-  { title: 'Outreach Weekend', body: "Bring STEM to the next generation and be the role model you wish you'd had growing up.", icon: 'pin', to: '/membershpe/outreach-weekend' },
+  { title: 'Outreach Weekend', body: "Bring STEM to the next generation and be the role model you wish you'd had growing up.", icon: 'pin', to: OUTREACH_PAGE_LIVE ? '/membershpe/outreach-weekend' : '/membershpe' },
   { title: 'Community', body: 'General body meetings, study nights and socials. A familia of dedicated RPI students who have your back.', icon: 'users', to: '/events' },
 ]
 
@@ -198,22 +200,9 @@ function WhySHPE() {
   )
 }
 
-const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-
 function MonthCalendar() {
-  const { year, month, entries } = HOME_CALENDAR
-  const first = new Date(year, month, 1)
-  const offset = first.getDay()
-  const daysInMonth = new Date(year, month + 1, 0).getDate()
-  const monthName = first.toLocaleString('en-US', { month: 'long' })
-  // Grid position (1-based) of a date in the month
-  const cell = (d: number) => ({ col: ((offset + d - 1) % 7) + 1, row: Math.floor((offset + d - 1) / 7) + 1 })
-  const busy = new Set(entries.flatMap((e) => e.days))
-  const shortDate = (e: (typeof entries)[number]) =>
-    `${WEEKDAYS[new Date(year, month, e.days[0]).getDay()].slice(0, 3)}, ${monthName.slice(0, 3)} ${
-      e.days.length > 1 ? `${e.days[0]}–${e.days[e.days.length - 1]}` : e.days[0]
-    }`
-
+  const { calendar, status } = useMonthCalendar(START_MONTH.year, START_MONTH.month)
+  const monthName = new Date(calendar.year, calendar.month, 1).toLocaleString('en-US', { month: 'long' })
   return (
     <section className="section cal-section">
       <div className="container cal-layout" data-reveal>
@@ -227,73 +216,77 @@ function MonthCalendar() {
             See all events
           </Link>
         </div>
-
-        <div className="cal-card">
-          <div className="cal-main">
-            <h3 className="cal-title">
-              {monthName} {year}
-            </h3>
-            <div className="cal-weekdays" aria-hidden="true">
-              {WEEKDAYS.map((w) => (
-                <span key={w}>{w}</span>
-              ))}
-            </div>
-            <div className="cal-grid" aria-hidden="true">
-              {Array.from({ length: daysInMonth }, (_, n) => {
-                const { col, row } = cell(n + 1)
-                return (
-                  <span key={n} className={`cal-day ${busy.has(n + 1) ? 'has-event' : ''}`} style={{ gridColumn: col, gridRow: row }}>
-                    {n + 1}
-                  </span>
-                )
-              })}
-              {entries.map((e) => {
-                const { col, row } = cell(e.days[0])
-                // Multi-day events run as a spaced-out banner across their days
-                return (
-                  <span
-                    key={e.title}
-                    className={`cal-event ${e.days.length > 1 ? 'is-banner' : ''} ${e.title.length > 20 ? 'is-long' : ''}`}
-                    style={{ gridColumn: `${col} / span ${e.days.length}`, gridRow: row }}
-                  >
-                    <strong>{e.title}</strong>
-                    {e.time}
-                  </span>
-                )
-              })}
-            </div>
-            <ul className="cal-agenda">
-              {entries.map((e) => (
-                <li key={e.title}>
-                  <span>{shortDate(e)}</span>
-                  <strong>{e.title}</strong>
-                  {e.time && <small>{e.time}</small>}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <span className="cal-sep" aria-hidden="true">
-            {monthName.slice(0, 3)}
-          </span>
-        </div>
+        <CalendarCard calendar={calendar} status={status} />
       </div>
     </section>
   )
 }
 
+// The collage's three photo tiles, in grid order (top middle, bottom left, bottom right).
+// All three move to their next photo together, so keep the lists the same length.
+// `position` (CSS object-position) keeps faces in the wide, short tiles: lower its
+// second number to show more of the top of a photo.
+const COLLAGE_PHOTOS: { src: string; alt: string; position: string }[][] = [
+  [
+    { src: asset('images/gbm.jpg'), alt: 'Members talking at a general body meeting', position: '50% 35%' },
+    { src: asset('images/img-9980_orig.jpg'), alt: 'Two members giving a thumbs up at a chapter event', position: '50% 15%' },
+    { src: asset('images/img-0362_orig.jpg'), alt: 'A member posing in front of the SHPE banner', position: '50% 10%' },
+    { src: asset('images/img-9754_orig.jpg'), alt: 'Three members posing together', position: '50% 15%' },
+  ],
+  [
+    { src: asset('images/img-9996_orig.jpg'), alt: 'Two members smiling at a chapter event', position: '50% 8%' },
+    { src: asset('images/img-9909_orig.jpg'), alt: 'A member smiling at the chapter BBQ', position: '50% 8%' },
+    { src: asset('images/img-0137_orig.jpg'), alt: 'Three members in front of the SHPE banner', position: '50% 20%' },
+    { src: asset('images/img-0493_orig.jpg'), alt: 'Members holding flags from across Latin America', position: '50% 25%' },
+  ],
+  [
+    { src: asset('images/shpetinas-dinner.jpg'), alt: 'SHPEtinas dinner', position: '50% 45%' },
+    { src: asset('images/img-0158_orig.jpg'), alt: 'A group of members at a chapter event', position: '50% 35%' },
+    { src: asset('images/img-9949_orig.jpg'), alt: 'Members gathered outside at the chapter BBQ', position: '50% 30%' },
+    { src: asset('images/img-0172_orig.jpg'), alt: 'Members working together at a table', position: '50% 35%' },
+  ],
+]
+const COLLAGE_MS = 6000
+
+function CollagePhotos({ photos, shown }: { photos: (typeof COLLAGE_PHOTOS)[number]; shown: number }) {
+  return (
+    <div className="collage-tile collage-photos">
+      {photos.map((p, n) => (
+        <img
+          key={p.src}
+          src={p.src}
+          alt={n === shown ? p.alt : ''}
+          className={n === shown ? 'is-active' : ''}
+          style={{ objectPosition: p.position }}
+          loading="lazy"
+        />
+      ))}
+    </div>
+  )
+}
+
 function Collage() {
+  const [shown, setShown] = useState(0)
+
+  useEffect(() => {
+    // Leave the first photos up for visitors who turn off motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const t = setTimeout(() => setShown((n) => (n + 1) % COLLAGE_PHOTOS[0].length), COLLAGE_MS)
+    return () => clearTimeout(t)
+  }, [shown])
+
   return (
     <section className="collage" aria-label="Chapter programs">
       <div className="collage-grid" data-reveal>
         <Link to="/eboard#committees" className="collage-tile collage-logo">
           <img src={asset('images/mentorshpe.png')} alt="MentorSHPE: The power of connection" />
         </Link>
-        <img className="collage-tile" src={asset('images/gbm.jpg')} alt="Members talking at a general body meeting" />
+        <CollagePhotos photos={COLLAGE_PHOTOS[0]} shown={shown} />
         <Link to="/eboard#committees" className="collage-tile collage-shpetinas">
           <img src={asset('images/shpetinas-logo.png')} alt="SHPEtinas: Igniting Latinas in STEM" />
         </Link>
-        <img className="collage-tile" src={asset('images/cooking.jpg')} alt="A member cooking at a chapter social" />
-        <img className="collage-tile" src={asset('images/shpetinas-dinner.jpg')} alt="SHPEtinas dinner" />
+        <CollagePhotos photos={COLLAGE_PHOTOS[1]} shown={shown} />
+        <CollagePhotos photos={COLLAGE_PHOTOS[2]} shown={shown} />
       </div>
     </section>
   )
@@ -303,7 +296,7 @@ function EboardPreview() {
   return (
     <section className="section bg-navy eb-section">
       <div className="container">
-        <h2 className="h2" data-reveal>
+        <h2 className="h2 eb-home-title" data-reveal>
           Meet the 2026–27 <em>Eboard</em>
         </h2>
         <ul className="eb-cards" data-reveal="stagger">
@@ -314,9 +307,6 @@ function EboardPreview() {
                 <h3>{o.name}</h3>
                 <p>{o.role}</p>
               </div>
-              <a className="eb-card-mail" href={`mailto:${o.email}`} aria-label={`Email ${o.name}`} title={o.email}>
-                <Icon name="mail" size={16} />
-              </a>
             </li>
           ))}
         </ul>
@@ -347,6 +337,29 @@ function Join() {
         </div>
         <SignupForm />
       </div>
+      <div className="container" data-reveal>
+        <div className="join-location">
+          <div className="join-address">
+            <Icon name="pin" size={22} className="join-pin" />
+            <h3>Where to find us</h3>
+            <p>
+              <strong>{CONTACT.campus}</strong>
+              <br />
+              {CONTACT.addressLine1}, {CONTACT.addressLine2}
+            </p>
+            <a className="link-strong" href={CONTACT.mapUrl} target="_blank" rel="noreferrer">
+              Get directions
+            </a>
+          </div>
+          <iframe
+            className="join-map"
+            title={`Map of ${CONTACT.campus}`}
+            src={`https://www.google.com/maps?q=${encodeURIComponent(`${CONTACT.campus}, ${CONTACT.addressLine1}, ${CONTACT.addressLine2}`)}&z=16&output=embed`}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
+      </div>
     </section>
   )
 }
@@ -356,10 +369,10 @@ export function Supporters() {
     <section className="section supporters">
       <div className="container" data-reveal>
         <SectionHead
-          title="Thank you to our Sponsors"
+          title="Thank you to our Sponsor"
           aside={
             <p>
-              Want to support the chapter? <Link to="/contact?topic=corporate" className="link-strong">Contact our Alumni &amp; Corporate Rep</Link>
+              Want to support the chapter? <a href={`mailto:${officer('corporate').email}`} className="link-strong">Email our Alumni &amp; Corporate Rep</a>
             </p>
           }
         />
