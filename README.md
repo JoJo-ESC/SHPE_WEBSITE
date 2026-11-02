@@ -58,3 +58,7 @@ Tips for events:
 ## Deploying
 
 Upload the contents of `dist/`. The site uses clean URLs (`/events`, `/eboard`…), so the server must send unknown paths to `index.html`. `public/.htaccess` does this on Apache.
+
+## License
+
+The code is released under the [MIT License](LICENSE). The SHPE name and logos, the RPI name, sponsor logos and the member photos in `public/images/` belong to their owners and aren't covered by it.

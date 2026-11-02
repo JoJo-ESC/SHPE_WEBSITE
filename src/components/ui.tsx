@@ -4,12 +4,7 @@ import { initials } from '../data/eboard'
 import { CONTACT } from '../data/site'
 import { Icon } from './Icon'
 
-export function Eyebrow({ children }: { children: ReactNode }) {
-  return <p className="eyebrow">{children}</p>
-}
-
 export function PageHero({
-  eyebrow,
   title,
   lead,
   crumbs,
@@ -17,7 +12,6 @@ export function PageHero({
   photos,
   flip,
 }: {
-  eyebrow?: ReactNode
   title: ReactNode
   lead?: ReactNode
   crumbs?: { to: string; label: string }[]
@@ -40,7 +34,6 @@ export function PageHero({
               ))}
             </nav>
           )}
-          {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
           <h1 className="display">{title}</h1>
           {lead && <p className="lead">{lead}</p>}
           {children && <div className="actions">{children}</div>}
@@ -68,12 +61,10 @@ export function Placeholder({ label, className = '' }: { label: string; classNam
 }
 
 export function SectionHead({
-  eyebrow,
   title,
   aside,
   center,
 }: {
-  eyebrow?: string
   title: ReactNode
   aside?: ReactNode
   center?: boolean
@@ -81,7 +72,6 @@ export function SectionHead({
   return (
     <div className={`section-head ${center ? 'is-center' : ''}`}>
       <div>
-        {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
         <h2 className="h2">{title}</h2>
       </div>
       {aside && <div className="section-aside">{aside}</div>}
