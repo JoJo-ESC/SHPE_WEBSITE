@@ -20,8 +20,8 @@ const COLLAGE = [
   [
     { src: 'img-0371_orig.jpg', grow: 335 },
     { src: 'img-0158_orig.jpg', grow: 360 },
-    { src: 'img-9949_orig.jpg', grow: 405 },
-    { src: 'img-9915_orig.jpg', grow: 343 },
+    { src: 'img-9915_orig.jpg', grow: 405 },
+    { src: 'img-9949_orig.jpg', grow: 343 },
   ],
 ]
 
@@ -97,9 +97,9 @@ function CalendarSection() {
                 <h3>What to expect every month</h3>
                 <dl className="regulars">
                   <dt>General body meetings</dt>
-                  <dd>6:30–9 PM</dd>
+                  <dd>6:30–9 PM, every other week</dd>
                   <dt>Study Jams</dt>
-                  <dd>7–9 PM, most weeks</dd>
+                  <dd>7–9 PM, every week</dd>
                 </dl>
               </div>
             </div>

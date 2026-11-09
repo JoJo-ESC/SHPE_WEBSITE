@@ -369,7 +369,7 @@ export function Supporters() {
     <section className="section supporters">
       <div className="container" data-reveal>
         <SectionHead
-          title="Thank you to our Sponsor"
+          title="Thank You To Our Sponsor"
           aside={
             <p>
               Want to support the chapter? <a href={`mailto:${officer('corporate').email}`} className="link-strong">Email our Alumni &amp; Corporate Rep</a>
