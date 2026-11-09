@@ -8,7 +8,7 @@ import { useMonthCalendar } from '../components/useMonthCalendar'
 import { useReveal } from '../components/useReveal'
 import { OFFICERS, officer } from '../data/eboard'
 import { START_MONTH } from '../data/events'
-import { asset, CONTACT, OUTREACH_PAGE_LIVE } from '../data/site'
+import { asset, CONTACT, EXTERNAL, OUTREACH_PAGE_LIVE } from '../data/site'
 
 // `position` overrides the default crop (CSS object-position) for photos framed differently
 const SLIDES: { src: string; alt: string; position?: string }[] = [
@@ -83,7 +83,7 @@ function NextStrip() {
       <div className="container next-grid" data-reveal>
         <Link to="/events" className="next-link">
           <h3>2026–27 member calendar</h3>
-          <p>GBMs, workshops and socials for the year, all in one place. September is out now.</p>
+          <p>GBMs, workshops and socials for the year, all in one place. August through November is out now.</p>
         </Link>
         <dl className="stats">
           <div>
@@ -129,7 +129,7 @@ const ABOUT_TABS = {
         SHPE was founded in Los Angeles in 1974 by a group of city engineers. Their goal was a national network of
         professional engineers who could serve as role models in the Hispanic community.
       </p>
-      <p>Two student chapters followed right away, and SHPE-Rensselaer carries that same mission at RPI today.</p>
+      <p>SHPE-Rensselaer was founded at RPI in 1983 and carries that same mission today.</p>
     </>
   ),
 }
@@ -378,7 +378,9 @@ export function Supporters() {
         />
         <ul className="sponsor-row">
           <li className="sponsor">
-            <img src={asset('images/GlobalFoundries-New-Logo.png.webp')} alt="GlobalFoundries" width={226} height={127} />
+            <a href={EXTERNAL.globalFoundries} target="_blank" rel="noreferrer">
+              <img src={asset('images/GlobalFoundries-New-Logo.png.webp')} alt="GlobalFoundries" width={226} height={127} />
+            </a>
           </li>
         </ul>
       </div>

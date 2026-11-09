@@ -27,13 +27,12 @@ export const FORMS = {
   resume: '#', // TODO: Google Form
   reimbursement: '#', // TODO: Google Form
   committee: '#', // TODO: Google Form
-  // 2026 Outreach Weekend links from the flyers. TODO: swap in the 2027 links when they're out
-  outreachRegistration: 'https://bit.ly/SHPE-Outreach-26',
-  outreachHost: 'https://bit.ly/SHPE-Oureach-Host-26',
+  outreachRegistration: '#', // TODO: 2027 Outreach Weekend form, then change the card's "Coming soon" tag
+  outreachHost: '#', // TODO: 2027 Outreach Weekend form, then change the card's "Coming soon" tag
 }
 
 export const DOCS = {
-  calendar: '#', // TODO: September 2026 calendar PDF
+  calendar: '#', // TODO: August-November 2026 calendar PDF
   solicitation: '#', // TODO: Corporate Solicitation Package PDF
   constitution: '#', // TODO: Constitution PDF
 }
@@ -43,6 +42,7 @@ export const EXTERNAL = {
   scholarshpe: 'https://shpe.org/students/scholarships/',
   henaac: 'https://www.greatmindsinstem.org',
   nila: 'https://shpe.org/engage/events/nila/',
+  globalFoundries: 'https://gf.com',
 }
 
 // The Outreach Weekend page is kept out of menus while it's reworked; it can still be

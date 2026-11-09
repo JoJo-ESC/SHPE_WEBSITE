@@ -60,11 +60,11 @@ type Conference = {
 const CONFERENCES: Conference[] = [
   {
     season: 'Fall',
-    name: 'National Conference',
-    title: 'SHPE National Conference',
-    body: 'The SHPE National Conference takes place every fall. This year it was in Philadelphia, PA, from October 29 to November 1.',
-    note: "Time to prepare for next year's conference.",
-    stat: { value: '48', label: 'SHPE-RPI members attended' },
+    name: 'National Convention',
+    title: 'SHPE National Convention',
+    body: 'The SHPE National Convention takes place every fall. This year it was in Indianapolis, Indiana, from October 28 to 31.',
+    note: "Time to prepare for next year's convention.",
+    stat: { value: '35', label: 'SHPE-RPI members attended' },
   },
   {
     season: 'Spring',

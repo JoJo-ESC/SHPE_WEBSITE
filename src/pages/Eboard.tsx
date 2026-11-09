@@ -34,13 +34,6 @@ function OfficerCard({ o, email = true }: { o: Officer; email?: boolean }) {
     <div className="officer">
       <div className="officer-photo">
         {o.photo ? <img src={o.photo} alt={o.name} loading="lazy" /> : <Avatar name={o.name} size="lg" />}
-        {email && (
-          <a className="officer-mail" href={`mailto:${o.email}`} aria-label={`Email ${o.name} at ${o.email}`}>
-            <Icon name="mail" size={13} />
-            <span className="officer-mail-address">{o.email}</span>
-            <span className="officer-mail-short">Email</span>
-          </a>
-        )}
       </div>
       <div className="officer-body">
         <p className="officer-role">{o.role}</p>
@@ -48,6 +41,12 @@ function OfficerCard({ o, email = true }: { o: Officer; email?: boolean }) {
         <p className="officer-meta">
           {o.degree} · Class of {o.year}
         </p>
+        {email && (
+          <a className="officer-mail" href={`mailto:${o.email}`} aria-label={`Email ${o.name} at ${o.email}`}>
+            <Icon name="mail" size={13} />
+            <span>{o.email}</span>
+          </a>
+        )}
       </div>
     </div>
   )

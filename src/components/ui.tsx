@@ -147,7 +147,7 @@ export function SignupForm() {
         <label>
           Class year
           <select name="year" defaultValue="2030">
-            {['2027', '2028', '2029', '2030', 'Graduate student'].map((y) => (
+            {['2027', '2028', '2029', '2030', '2031', 'Graduate student', 'Prospective student'].map((y) => (
               <option key={y}>{y}</option>
             ))}
           </select>

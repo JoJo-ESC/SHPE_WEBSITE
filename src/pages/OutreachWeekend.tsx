@@ -28,8 +28,9 @@ export function OutreachWeekend() {
             Outreach <em>Weekend</em>
           </h1>
           <p className="lead">
-            A free three-day weekend at RPI where high school students explore STEM through college-level challenges,
-            professor workshops and leadership activities.
+            A free three-day weekend at RPI, held Friday, March 20 - Sunday, March 22, 2026, where high school students
+            from NYC and Westchester explored STEM through college-level challenges, professor workshops and leadership
+            activities.
           </p>
         </div>
       </section>

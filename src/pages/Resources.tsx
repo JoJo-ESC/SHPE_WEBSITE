@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Icon } from '../components/Icon'
 import { useReveal } from '../components/useReveal'
 import { RESOURCE_GROUPS, RESOURCES } from '../data/resources'
-import { CONTACT } from '../data/site'
+import { asset, CONTACT } from '../data/site'
 
 export function Resources() {
   useReveal()
@@ -15,8 +15,13 @@ export function Resources() {
   return (
     <>
       <section className="res-hero">
-        <div className="container" data-reveal>
-          <h1 className="res-title">Important Links, Documents, Social Media</h1>
+        <img className="res-hero-img" src={asset('images/gbm.jpg')} alt="" />
+        <div className="res-hero-shade" aria-hidden="true" />
+        <div className="container res-hero-inner" data-reveal>
+          <h1 className="res-title">
+            Everything the <em>familia</em> needs, all in one place.
+          </h1>
+          <p className="res-sub">Important Links, Documents, Social Media</p>
           <label className="search res-search">
             <Icon name="search" size={16} />
             <span className="sr-only">Search resources</span>

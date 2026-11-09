@@ -68,7 +68,7 @@ function Pillars() {
     <section className="section bg-mist">
       <div className="container" data-reveal>
         <SectionHead
-          title={<>How we develop our <em>members</em></>}
+          title={<>5 Pillars of <em>SHPE</em></>}
           aside={
             <div className="pillar-arrows">
               <button
