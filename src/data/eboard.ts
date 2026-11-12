@@ -44,7 +44,7 @@ export const COMMITTEES: Committee[] = [
   {
     name: 'Fundraising',
     description:
-      'The Fundraising Committee raises money for the chapter through fundraisers like empanada sales and raffles. It also runs fundraisers that donate to philanthropic causes, like disaster relief and Latino youth education. The committee helps maintain the budget and plan chapter outings, like familia bonding and Executive Board bonding.',
+      'The Fundraising Committee raises money for the chapter through fundraisers like raffles. It also runs fundraisers that donate to philanthropic causes, like disaster relief and Latino youth education. The committee helps maintain the budget and plan chapter outings, like familia bonding and Executive Board bonding.',
     officerId: 'treasurer',
   },
   {
@@ -62,7 +62,7 @@ export const COMMITTEES: Committee[] = [
   {
     name: 'MentorSHPE',
     description:
-      'The MentorSHPE Committee pairs incoming freshmen and transfer students with upperclassmen mentors. It keeps mentors and mentees in touch through email and social media, and it organizes MentorSHPE events like familia apple picking and game night.',
+      'The MentorSHPE Committee pairs incoming freshmen and transfer students with upperclassmen mentors. It keeps mentors and mentees in touch through email and social media, and it organizes MentorSHPE events like basketball, trips to haunted houses and trips to trampoline parks.',
     officerId: 'internal',
   },
   {

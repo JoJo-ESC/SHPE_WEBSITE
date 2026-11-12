@@ -829,7 +829,8 @@ h3 {
 }
 .cal-layout {
   display: grid;
-  grid-template-columns: 1fr 640px;
+  /* The text keeps at least 280px; the calendar gives way first on narrower screens */
+  grid-template-columns: minmax(280px, 1fr) minmax(0, 720px);
   gap: 48px;
   align-items: start;
 }
@@ -841,156 +842,33 @@ h3 {
   max-width: 420px;
   color: var(--text);
 }
-.cal-layout .cal-card {
+.cal-layout .gcal {
   margin-top: 46px;
 }
-/* ---------- Calendar card (CalendarCard) ----------
-   Sized in em from an 8px base, the home mockup's scale; the Events page sets a
-   larger font-size to scale the whole card up. */
-.cal-card {
-  --cal-bg: #5790b0;
-  --cal-line: rgba(28, 40, 80, 0.85);
-  position: relative;
-  max-width: 80em;
-  padding: 2.375em 1.75em 6.25em 4.125em;
-  border-radius: 2em;
-  background: var(--cal-bg);
-  color: var(--white);
-  font-family: Arial, Helvetica, var(--sans);
-  font-size: 8px;
+.cal-layout .gcal iframe {
+  height: 500px;
 }
-.cal-main {
-  position: relative;
-  width: 56.5em;
-  max-width: 100%;
+/* ---------- Google Calendar embed (GoogleCalendar) ---------- */
+.gcal {
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--shadow);
 }
-.cal-title {
-  color: var(--white);
-  font-family: inherit;
-  font-size: 2.6em;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin: 0 0 0.577em 0.144em;
-}
-.cal-weekdays,
-.cal-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-}
-.cal-weekdays span {
-  text-align: center;
-  font-size: 1.125em;
-  line-height: 1.333;
-  text-transform: uppercase;
-  padding-bottom: 0.444em;
-}
-.cal-grid {
-  grid-auto-rows: 6.675em;
-}
-.cal-day {
-  padding: 0.375em;
-  /* Single-pixel shared borders between neighbouring cells */
-  box-shadow: 1px 0 0 0 var(--cal-line), 0 1px 0 0 var(--cal-line), 1px 1px 0 0 var(--cal-line),
-    1px 0 0 0 var(--cal-line) inset, 0 1px 0 0 var(--cal-line) inset;
-}
-.cal-event {
-  z-index: 1;
-  pointer-events: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2.25em 0.125em 0.25em;
-  text-align: center;
-  font-weight: 700;
-  line-height: 1.2;
-}
-/* Long names drop a size so they still fit three lines in a cell */
-.cal-event.is-long {
-  font-size: 0.9em;
-  padding-top: 2.5em;
-}
-.cal-event strong {
+.gcal iframe {
   display: block;
+  width: 100%;
+  height: 560px;
+  border: 0;
 }
-.cal-event.is-banner {
-  text-transform: uppercase;
-  letter-spacing: 0.35em;
-  white-space: pre-line;
+.ev-cal-layout .gcal iframe {
+  height: 680px;
 }
-/* A long name on a short banner (an event cut off by the end of the week) */
-.cal-event.is-banner.is-tight {
-  letter-spacing: 0.08em;
-}
-/* Two or more events on one day: titles only, one line each */
-.cal-event.is-multi {
-  font-size: 0.85em;
-  padding-top: 2.5em;
-  align-items: stretch;
-}
-.cal-event.is-multi strong {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.cal-event.is-multi small {
-  font-size: 1em;
-  font-weight: 400;
-}
-/* Waiting on Google Calendar */
-.cal-card.is-loading .cal-grid {
-  opacity: 0.55;
-}
-.cal-sep {
-  position: absolute;
-  right: 0.092em;
-  bottom: 0.283em;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-size: 19em;
-  font-weight: 700;
-  text-transform: uppercase;
-  line-height: 0.72;
-}
-/* A month without events yet */
-.cal-empty {
-  position: absolute;
-  left: 50%;
-  top: 56%;
-  transform: translate(-50%, -50%);
-  margin: 0;
-  padding: 0.6em 1.3em;
-  border-radius: 999px;
-  background: var(--navy);
-  font-size: 1.75em;
-  font-weight: 700;
-  white-space: nowrap;
-}
-/* Agenda list: read by screen readers on desktop, shown on phones */
-.cal-agenda {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-}
-.cal-agenda li {
-  display: grid;
-  grid-template-columns: 112px 1fr;
-  column-gap: 12px;
-  padding: 10px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
-  font-size: 0.85rem;
-}
-.cal-agenda strong {
-  grid-column: 2;
-}
-.cal-agenda small {
-  grid-column: 2;
-  opacity: 0.85;
-}
-.cal-agenda span {
-  grid-row: span 2;
-  font-weight: 700;
+@media (max-width: 600px) {
+  .gcal iframe,
+  .ev-cal-layout .gcal iframe {
+    height: 520px;
+  }
 }
 
 /* Monthly event flyers under the calendar (CalendarFlyers) */
@@ -1722,14 +1600,6 @@ a.way:hover h3 {
   gap: 48px;
   align-items: start;
 }
-/* The card is 80em wide, so this fills the column, up to 1.25x the home page's card */
-.ev-cal-main {
-  container-type: inline-size;
-}
-.ev-cal-main .cal-card {
-  max-width: none;
-  font-size: min(10px, 100cqi / 80);
-}
 .ev-side {
   display: grid;
   gap: 24px;
@@ -1741,34 +1611,6 @@ a.way:hover h3 {
   border: 1px solid var(--line-dark);
   border-radius: 10px;
   box-shadow: var(--shadow);
-}
-.ev-month-switch {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  height: 58px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
-  font-family: var(--serif);
-  font-size: 1.55rem;
-  color: var(--white);
-}
-/* Wide enough for "September" so the arrows stay put between months */
-.ev-month-switch span {
-  min-width: 4.6em;
-  text-align: center;
-}
-.ev-month-switch button {
-  padding: 0 6px;
-  border-radius: 6px;
-  color: var(--white);
-}
-.ev-month-switch button:hover:not(:disabled) {
-  color: var(--orange);
-}
-.ev-month-switch button:disabled {
-  opacity: 0.3;
-  cursor: default;
 }
 .ev-month-body {
   padding: 24px 24px 28px;
@@ -1963,19 +1805,6 @@ a.way:hover h3 {
   color: var(--navy);
   stroke-width: 1.3;
 }
-.info-cta {
-  margin-top: 8px;
-  padding-top: 28px;
-  border-top: 1px solid var(--line);
-}
-.info-cta h3 {
-  font-size: 1.3rem;
-  margin-bottom: 6px;
-}
-.info-cta p {
-  margin: 0;
-}
-
 /* Conferences: one row per conference */
 .conf-table {
   width: 100%;
@@ -2522,9 +2351,6 @@ img.avatar {
     position: relative;
     left: -24px;
   }
-  .cal-layout .cal-card {
-    left: 48px;
-  }
   .collage-shpetinas img {
     transform: translateX(-8px);
   }
@@ -2535,7 +2361,7 @@ img.avatar {
     grid-template-columns: minmax(0, 1fr);
     gap: 0;
   }
-  .cal-layout .cal-card {
+  .cal-layout .gcal {
     margin-top: 32px;
   }
   .footer-grid {
@@ -2822,36 +2648,6 @@ img.avatar {
   }
   .stats dt {
     font-size: 1.8rem;
-  }
-  .cal-card,
-  .ev-cal-main .cal-card {
-    padding: 20px 16px;
-    font-size: 8px;
-  }
-  .cal-sep,
-  .cal-event {
-    display: none;
-  }
-  .cal-weekdays span {
-    font-size: 0;
-  }
-  .cal-weekdays span::first-letter {
-    font-size: 0.7rem;
-  }
-  .cal-grid {
-    grid-auto-rows: 38px;
-  }
-  .cal-day.has-event {
-    background: rgba(255, 255, 255, 0.22);
-    font-weight: 700;
-  }
-  .cal-agenda {
-    position: static;
-    width: auto;
-    height: auto;
-    overflow: visible;
-    clip: auto;
-    margin-top: 20px;
   }
   .eb-cards {
     --gap: 12px;
