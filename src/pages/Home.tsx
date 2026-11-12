@@ -1,14 +1,12 @@
 import { useEffect, useState, type CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
-import { CalendarCard } from '../components/CalendarCard'
 import { CalendarFlyers } from '../components/CalendarFlyers'
+import { GoogleCalendar } from '../components/GoogleCalendar'
 import { Icon, type IconName } from '../components/Icon'
 import { SocialLinks } from '../components/Layout'
 import { CheckList, SectionHead, SignupForm } from '../components/ui'
-import { useMonthCalendar } from '../components/useMonthCalendar'
 import { useReveal } from '../components/useReveal'
 import { OFFICERS, officer } from '../data/eboard'
-import { START_MONTH } from '../data/events'
 import { asset, CONTACT, EXTERNAL, OUTREACH_PAGE_LIVE } from '../data/site'
 
 // `position` overrides the default crop (CSS object-position) for photos framed differently
@@ -201,9 +199,11 @@ function WhySHPE() {
   )
 }
 
+// The embedded calendar opens on the current month
+const THIS_MONTH = new Date().toLocaleString('en-US', { month: 'long' })
+
 function MonthCalendar() {
-  const { calendar, status } = useMonthCalendar(START_MONTH.year, START_MONTH.month)
-  const monthName = new Date(calendar.year, calendar.month, 1).toLocaleString('en-US', { month: 'long' })
+  const monthName = THIS_MONTH
   return (
     <section className="section cal-section">
       <div className="container cal-layout" data-reveal>
@@ -217,10 +217,10 @@ function MonthCalendar() {
             See all events
           </Link>
         </div>
-        <CalendarCard calendar={calendar} status={status} />
+        <GoogleCalendar />
       </div>
       <div className="container">
-        <CalendarFlyers year={calendar.year} month={calendar.month} />
+        <CalendarFlyers />
       </div>
     </section>
   )

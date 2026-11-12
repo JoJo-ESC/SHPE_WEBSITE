@@ -90,9 +90,9 @@ function Footer() {
           <h4>Explore</h4>
           <ul>
             <li><Link to="/membershpe">MemberSHPE</Link></li>
-            <li><Link to="/events">Upcoming events</Link></li>
-            <li><Link to="/eboard">Eboard &amp; committees</Link></li>
-            <li><Link to="/resources">Documents &amp; forms</Link></li>
+            <li><Link to="/events">Upcoming Events</Link></li>
+            <li><Link to="/eboard">Eboard &amp; Committees</Link></li>
+            <li><Link to="/resources">Documents &amp; Forms</Link></li>
           </ul>
         </div>
         <div>
@@ -104,11 +104,11 @@ function Footer() {
               <br />
               {CONTACT.addressLine2}
             </li>
-            <li><a href={EXTERNAL.national} target="_blank" rel="noreferrer">Part of SHPE National</a></li>
+            <li><a href={EXTERNAL.national} target="_blank" rel="noreferrer">SHPE National</a></li>
           </ul>
         </div>
         <div>
-          <h4>Follow along</h4>
+          <h4>Follow Along</h4>
           <SocialLinks className="social-footer" />
         </div>
       </div>

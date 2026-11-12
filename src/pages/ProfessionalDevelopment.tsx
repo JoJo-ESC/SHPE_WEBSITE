@@ -209,16 +209,6 @@ export function ProfessionalDevelopment() {
                   </li>
                 ))}
               </ul>
-              <div className="info-cta">
-                <h3>Get your resume in front of companies</h3>
-                <p>
-                  Submit it once through our{' '}
-                  <a href={FORMS.resume} {...ext}>
-                    resume form
-                  </a>{' '}
-                  and we'll share it with our company partners.
-                </p>
-              </div>
             </div>
             <img
               className="prep-photo"

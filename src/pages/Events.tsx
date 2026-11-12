@@ -1,14 +1,12 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { CalendarCard } from '../components/CalendarCard'
 import { CalendarFlyers } from '../components/CalendarFlyers'
+import { GoogleCalendar } from '../components/GoogleCalendar'
 import { Icon } from '../components/Icon'
 import { PhotoCarousel } from '../components/PhotoCarousel'
-import { useMonthCalendar } from '../components/useMonthCalendar'
 import { useReveal } from '../components/useReveal'
-import { CALENDARS, PAST_EVENTS, START_MONTH } from '../data/events'
-import { LIVE_CALENDAR, SUBSCRIBE_URL } from '../data/googleCalendar'
-import { asset, DOCS } from '../data/site'
+import { PAST_EVENTS } from '../data/events'
+import { SUBSCRIBE_URL } from '../data/googleCalendar'
+import { asset } from '../data/site'
 
 // Two rows of photos behind the hero. `grow` is each photo's share of its row's width.
 const COLLAGE = [
@@ -46,15 +44,9 @@ function EventsHero() {
           </h1>
           <p className="lead">GBMs, Study Jams, career events and community time. Browse the 2026–27 member calendar month by month.</p>
           <div className="actions">
-            {SUBSCRIBE_URL ? (
-              <a href={SUBSCRIBE_URL} className="btn btn-primary" target="_blank" rel="noreferrer">
-                <Icon name="calendar" size={16} /> Add to Google Calendar
-              </a>
-            ) : (
-              <a href={DOCS.calendar} className="btn btn-primary">
-                <Icon name="download" size={16} /> Download calendar (PDF)
-              </a>
-            )}
+            <a href={SUBSCRIBE_URL} className="btn btn-primary" target="_blank" rel="noreferrer">
+              <Icon name="calendar" size={16} /> Add to Google Calendar
+            </a>
           </div>
         </div>
       </div>
@@ -62,38 +54,15 @@ function EventsHero() {
   )
 }
 
-// Months as one running number, so stepping past December lands in January
-const monthNumber = (m: { year: number; month: number }) => m.year * 12 + m.month
-// Google Calendar can show any month; typed-in months stop where the data does
-const FIRST = LIVE_CALENDAR ? -Infinity : monthNumber(CALENDARS[0])
-const LAST = LIVE_CALENDAR ? Infinity : monthNumber(CALENDARS[CALENDARS.length - 1])
-
 function CalendarSection() {
-  const [shown, setShown] = useState(monthNumber(START_MONTH))
-  const { calendar, status } = useMonthCalendar(Math.floor(shown / 12), shown % 12)
-  const monthName = new Date(calendar.year, calendar.month, 1).toLocaleString('en-US', { month: 'long' })
-
   return (
     <section className="section bg-mist">
       <div className="container" data-reveal>
-        <h2 className="h2 ev-cal-title" aria-live="polite">
-          SHPE {monthName} Calendar
-        </h2>
+        <h2 className="h2 ev-cal-title">SHPE Calendar</h2>
         <div className="ev-cal-layout">
-          <div className="ev-cal-main">
-            <CalendarCard calendar={calendar} status={status} />
-          </div>
+          <GoogleCalendar lazy={false} />
           <aside className="ev-side">
             <div className="ev-month-card">
-              <div className="ev-month-switch">
-                <button aria-label="Previous month" disabled={shown <= FIRST} onClick={() => setShown((s) => s - 1)}>
-                  &lt;
-                </button>
-                <span>{monthName}</span>
-                <button aria-label="Next month" disabled={shown >= LAST} onClick={() => setShown((s) => s + 1)}>
-                  &gt;
-                </button>
-              </div>
               <div className="ev-month-body">
                 <h3>What to expect every month</h3>
                 <dl className="regulars">
@@ -113,7 +82,7 @@ function CalendarSection() {
             </div>
           </aside>
         </div>
-        <CalendarFlyers year={calendar.year} month={calendar.month} />
+        <CalendarFlyers />
       </div>
     </section>
   )

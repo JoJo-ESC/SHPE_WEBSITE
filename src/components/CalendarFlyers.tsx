@@ -1,9 +1,9 @@
-import { flyersFor } from '../data/events'
+import { LATEST_FLYERS } from '../data/events'
 
-/** The month's event flyers, each opening full size in a new tab. Renders nothing for a month without flyers. */
-export function CalendarFlyers({ year, month }: { year: number; month: number }) {
-  const pages = flyersFor(year, month)
-  if (pages.length === 0) return null
+/** The newest month's event flyers, each opening full size in a new tab */
+export function CalendarFlyers() {
+  if (!LATEST_FLYERS) return null
+  const { year, month, pages } = LATEST_FLYERS
   const monthName = new Date(year, month, 1).toLocaleString('en-US', { month: 'long' })
 
   return (
