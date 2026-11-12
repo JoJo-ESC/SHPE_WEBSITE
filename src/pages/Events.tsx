@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CalendarCard } from '../components/CalendarCard'
+import { CalendarFlyers } from '../components/CalendarFlyers'
 import { Icon } from '../components/Icon'
 import { PhotoCarousel } from '../components/PhotoCarousel'
 import { useMonthCalendar } from '../components/useMonthCalendar'
@@ -112,6 +113,7 @@ function CalendarSection() {
             </div>
           </aside>
         </div>
+        <CalendarFlyers year={calendar.year} month={calendar.month} />
       </div>
     </section>
   )

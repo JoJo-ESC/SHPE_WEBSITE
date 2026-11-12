@@ -27,7 +27,7 @@ export const RESOURCES: Resource[] = [
   { kind: 'Forms', icon: 'home', tag: 'Coming soon', title: 'Outreach Weekend host application', description: 'RPI students: apply to host a visiting student.', href: FORMS.outreachHost },
   { kind: 'Documents', icon: 'file', tag: 'PDF · 6.7 MB', title: 'Corporate Solicitation Package 2026–27', description: 'Sponsorship opportunities for companies and partners.', href: DOCS.solicitation },
   { kind: 'Documents', icon: 'book', tag: 'PDF · 285 KB', title: 'SHPE-Rensselaer Constitution', description: 'The rules and regulations that govern our chapter.', href: DOCS.constitution },
-  { kind: 'Documents', icon: 'calendar', tag: 'PDF', title: 'Member calendar: August-November 2026', description: 'GBMs, Study Jams and events for August through November.', href: DOCS.calendar },
+  { kind: 'Documents', icon: 'calendar', tag: 'PDF', title: 'Member calendar 2026–27', description: 'The latest monthly calendar of GBMs, Study Jams and events.', href: DOCS.calendar },
   { kind: 'Social', icon: 'instagram', tag: '@shperpi', title: 'Instagram', description: 'Event announcements, photos and chapter news.', href: SOCIAL.instagram },
   { kind: 'Social', icon: 'instagram', tag: '@shperpioutreach', title: 'Outreach Instagram', description: 'Everything Outreach Weekend and K-12 outreach.', href: SOCIAL.outreachInstagram },
   { kind: 'Social', icon: 'tiktok', tag: '@shperpi', title: 'TikTok', description: 'Short videos from chapter life.', href: SOCIAL.tiktok },

@@ -20,21 +20,22 @@ export const SOCIAL = {
   outreachInstagram: 'https://www.instagram.com/shperpioutreach/',
   tiktok: 'https://www.tiktok.com/@shperpi',
   youtube: 'https://www.youtube.com/@shperpi',
-  linkedin: 'https://www.linkedin.com/company/shpe-rensselaer/home/',
+  linkedin: 'https://www.linkedin.com/company/shpe-rensselaer/posts/?feedView=all',
 }
 
 export const FORMS = {
-  resume: '#', // TODO: Google Form
-  reimbursement: '#', // TODO: Google Form
-  committee: '#', // TODO: Google Form
+  resume: 'https://docs.google.com/forms/d/e/1FAIpQLSfgmthJ9S16uKMbrCETyHyQpNQ7Oc_LlNpYw_pwLhB9GDVwzQ/viewform',
+  reimbursement: 'https://docs.google.com/forms/d/e/1FAIpQLSfBx1W1tqf9oFMW-j3hfUR8AOAyIxhm9uQlviRxrJuQZxCNdA/viewform',
+  committee: 'https://docs.google.com/forms/d/e/1FAIpQLSfyCpl1YrmHVIgtfuh8WknGh57dYhBnzb8gwaVa7zxuzOcteQ/viewform',
   outreachRegistration: '#', // TODO: 2027 Outreach Weekend form, then change the card's "Coming soon" tag
   outreachHost: '#', // TODO: 2027 Outreach Weekend form, then change the card's "Coming soon" tag
 }
 
 export const DOCS = {
-  calendar: '#', // TODO: August-November 2026 calendar PDF
-  solicitation: '#', // TODO: Corporate Solicitation Package PDF
-  constitution: '#', // TODO: Constitution PDF
+  // Hosted on the chapter Linktree. The file URL changes each time a new month is uploaded there.
+  calendar: 'https://ugc.production.linktr.ee/564c7d0b-360b-450f-8bd5-18c40796fc9e_2026-2027-Member-Calendar.pdf',
+  solicitation: 'https://shpe.rpi.edu/uploads/1/2/8/2/12827229/2026-2027_corporate_solicitation_packet.pdf',
+  constitution: 'https://shpe.rpi.edu/uploads/1/2/8/2/12827229/shpe-constitution.pdf',
 }
 
 export const EXTERNAL = {

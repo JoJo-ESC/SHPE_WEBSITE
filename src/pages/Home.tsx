@@ -1,6 +1,7 @@
 import { useEffect, useState, type CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import { CalendarCard } from '../components/CalendarCard'
+import { CalendarFlyers } from '../components/CalendarFlyers'
 import { Icon, type IconName } from '../components/Icon'
 import { SocialLinks } from '../components/Layout'
 import { CheckList, SectionHead, SignupForm } from '../components/ui'
@@ -83,7 +84,7 @@ function NextStrip() {
       <div className="container next-grid" data-reveal>
         <Link to="/events" className="next-link">
           <h3>2026–27 member calendar</h3>
-          <p>GBMs, workshops and socials for the year, all in one place. August through November is out now.</p>
+          <p>GBMs, workshops and socials for the year, all in one place, with each month's event flyers.</p>
         </Link>
         <dl className="stats">
           <div>
@@ -217,6 +218,9 @@ function MonthCalendar() {
           </Link>
         </div>
         <CalendarCard calendar={calendar} status={status} />
+      </div>
+      <div className="container">
+        <CalendarFlyers year={calendar.year} month={calendar.month} />
       </div>
     </section>
   )

@@ -26,8 +26,48 @@ export const CALENDARS: MonthCalendar[] = [
       { days: [28], title: 'Study Jam 3', time: '7 - 9 PM' },
     ],
   },
-  { year: 2026, month: 9, entries: [] }, // October
+  {
+    year: 2026,
+    month: 9, // October
+    entries: [
+      { days: [1], title: 'GBM 3: Movie Night', time: '6:30 - 8 PM' },
+      { days: [5], title: 'LinkedIn Workshop', time: '6 - 7:30 PM' },
+      { days: [5], title: 'Study Jam 4', time: '7 - 9 PM' },
+      { days: [8], title: 'MentorSHPE Matching', time: '7 PM' },
+      { days: [10], title: 'Alumni Weekend', time: '4 - 6 PM' },
+      { days: [11], title: 'SHPEtinas Pumpkin Painting', time: '4 - 6 PM' },
+      // Runs Oct 13-23, but other events share those days, so it sits on its first day only
+      { days: [13], title: 'SHPE Raffle', time: 'Through Oct 23' },
+      { days: [15], title: 'GBM 4: Dress to Impress', time: '6:30 - 8 PM' },
+      { days: [17], title: 'SHPEtinas x SWE Pilates', time: '12 - 1 PM' },
+      { days: [19], title: 'Study Jam 5', time: '7 - 9 PM' },
+      { days: [20], title: 'Breast Cancer Awareness', time: '7 - 9 PM' },
+      { days: [23], title: 'Familia Bonding', time: '6 - 11 PM' },
+      { days: [24], title: 'Philanthropy Fest', time: '2 - 5 PM' },
+      { days: [25], title: 'MentorSHPE Basketball', time: '1 - 3 PM' },
+      { days: [26], title: 'Study Jam 6', time: '7 - 9 PM' },
+      { days: [28, 29, 30, 31], title: 'National\nConvention', time: '' },
+    ],
+  },
+  { year: 2026, month: 10, entries: [] }, // November
 ]
+
+// Monthly event flyers (the images from the member calendar PDF), shown under the
+// calendar on the home and Events pages for their month. Files go in
+// public/images/calendar/. A month with no flyers here just shows the calendar.
+export type Flyer = { src: string; alt: string }
+export const FLYERS: { year: number; month: number; pages: Flyer[] }[] = [
+  {
+    year: 2026,
+    month: 9, // October
+    pages: [
+      { src: asset('images/calendar/2026-10-1.png'), alt: 'SHPE-RPI October 2026 events flyer for October 1 to 17' },
+      { src: asset('images/calendar/2026-10-2.png'), alt: 'SHPE-RPI October 2026 events flyer for October 19 to 31' },
+    ],
+  },
+]
+export const flyersFor = (year: number, month: number) =>
+  FLYERS.find((f) => f.year === year && f.month === month)?.pages ?? []
 
 // The month the home and Events pages open on: this month from Google Calendar,
 // or else the latest typed-in month that has events

@@ -35,11 +35,46 @@ export const initials = (name: string) =>
 export type Committee = { name: string; description: string; officerId: string }
 
 export const COMMITTEES: Committee[] = [
-  { name: 'SHPE Jr.', description: 'Works with local high school faculty to plan STEM projects for Hispanic high school students.', officerId: 'external' },
-  { name: 'Fundraising', description: 'Plans fundraisers that help cover conference travel, events and outreach supplies.', officerId: 'treasurer' },
-  { name: 'Education', description: 'Runs Study Jams and academic workshops so members can lean on each other through tough classes.', officerId: 'internal' },
-  { name: 'Corporate', description: 'Builds relationships with company partners and helps bring recruiters, panels and info sessions to campus.', officerId: 'corporate' },
-  { name: 'MentorSHPE', description: 'Pairs newer members with upperclassmen and grad students for guidance on classes, internships and life at RPI.', officerId: 'vp' },
-  { name: 'SHPEtinas', description: 'Ignites Latinas in STEM through Cafecitos, community events and a support network of women engineers.', officerId: 'regional' },
-  { name: 'Advertising', description: 'Promotes chapter activities across social media and other channels, and keeps the website up to date.', officerId: 'webmaster' },
+  {
+    name: 'SHPE Jr.',
+    description:
+      'The SHPE Jr. Committee introduces high school students to STEM through presentations and experiments it develops. It keeps in touch with high school administrators and SHPE Jr. chapter members so activities carry on from year to year, and it runs at least three programs each semester, such as leadership and pre-college programs.',
+    officerId: 'vp',
+  },
+  {
+    name: 'Fundraising',
+    description:
+      'The Fundraising Committee raises money for the chapter through fundraisers like empanada sales and raffles. It also runs fundraisers that donate to philanthropic causes, like disaster relief and Latino youth education. The committee helps maintain the budget and plan chapter outings, like familia bonding and Executive Board bonding.',
+    officerId: 'treasurer',
+  },
+  {
+    name: 'Education',
+    description:
+      "The Education Committee maintains SHPE's educational resources, like the backwork drive and textbooks. It coordinates educational and development programs, like the Resume Workshop and Beginner Series, and it runs ScholarSHPE.",
+    officerId: 'regional',
+  },
+  {
+    name: 'Corporate',
+    description:
+      'The Corporate Committee finds corporate sponsors to support the chapter. It works to strengthen our connection with alumni and keep them engaged, and it comes up with event ideas that bring alumni, companies, faculty and students together.',
+    officerId: 'corporate',
+  },
+  {
+    name: 'MentorSHPE',
+    description:
+      'The MentorSHPE Committee pairs incoming freshmen and transfer students with upperclassmen mentors. It keeps mentors and mentees in touch through email and social media, and it organizes MentorSHPE events like familia apple picking and game night.',
+    officerId: 'internal',
+  },
+  {
+    name: 'SHPEtinas',
+    description:
+      'The SHPEtinas Committee organizes professional and social SHPEtinas events, like Cafecitos. It collaborates with other women-focused organizations, like SWE, and it builds and maintains a network of SHPEtinas alumni.',
+    officerId: 'external',
+  },
+  {
+    name: 'Advertising',
+    description:
+      'The Advertising Committee creates and designs advertisements for SHPE activities and events. It shares SHPE announcements on social media and through flyers, and its members help take pictures at events and keep the website up to date.',
+    officerId: 'webmaster',
+  },
 ]
