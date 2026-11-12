@@ -993,6 +993,45 @@ h3 {
   font-weight: 700;
 }
 
+/* Monthly event flyers under the calendar (CalendarFlyers) */
+.cal-flyers {
+  margin-top: 56px;
+}
+.cal-flyers-title {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+.cal-flyers-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.cal-flyers-grid a {
+  display: block;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.cal-flyers-grid a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 2px 4px rgba(28, 40, 80, 0.08), 0 14px 32px rgba(28, 40, 80, 0.12);
+}
+.cal-flyers-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+@media (max-width: 880px) {
+  .cal-flyers {
+    margin-top: 40px;
+  }
+  .cal-flyers-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
 /* ---------- Home: collage ---------- */
 .collage {
   background: var(--mist);
@@ -2266,7 +2305,8 @@ img.avatar {
 }
 .committee-panel p {
   font-size: 1.05rem;
-  max-width: 460px;
+  line-height: 1.65;
+  max-width: 520px;
   margin-bottom: 0;
 }
 .committee-lead {
