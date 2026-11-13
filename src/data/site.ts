@@ -38,6 +38,12 @@ export const DOCS = {
   constitution: 'https://shpe.rpi.edu/uploads/1/2/8/2/12827229/shpe-constitution.pdf',
 }
 
+// Site credit in the footer's bottom bar. Leave href empty to show the name without a link.
+export const CREDIT = {
+  name: 'Fredy Cabrera Pinto',
+  href: 'https://www.linkedin.com/in/fredy-cabrera-pinto/',
+}
+
 export const EXTERNAL = {
   national: 'https://shpe.org',
   scholarshpe: 'https://shpe.org/students/scholarships/',

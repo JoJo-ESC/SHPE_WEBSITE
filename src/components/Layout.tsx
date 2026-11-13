@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
-import { asset, CONTACT, EXTERNAL, NAV, SOCIAL } from '../data/site'
+import { asset, CONTACT, CREDIT, EXTERNAL, NAV, SOCIAL } from '../data/site'
 import { Icon } from './Icon'
 
 const YEAR = new Date().getFullYear()
@@ -130,7 +130,17 @@ function Footer() {
         </div>
       </div>
       <div className="container footer-bottom">
-        © {YEAR} SHPE-Rensselaer. A chapter of the Society of Hispanic Professional Engineers.
+        <span>© {YEAR} SHPE-Rensselaer. A chapter of the Society of Hispanic Professional Engineers.</span>
+        <span className="footer-credit">
+          Designed &amp; built by{' '}
+          {CREDIT.href ? (
+            <a href={CREDIT.href} target="_blank" rel="noreferrer">
+              {CREDIT.name} <Icon name="external" size={12} />
+            </a>
+          ) : (
+            CREDIT.name
+          )}
+        </span>
       </div>
     </footer>
   )
