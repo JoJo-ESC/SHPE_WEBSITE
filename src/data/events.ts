@@ -19,8 +19,8 @@ export const LATEST_FLYERS = FLYERS.at(-1)
 // "Previous Events" carousel on the Events page. `label` curves along the bottom of the photo.
 export const PAST_EVENTS: { label: string; photo: string; alt: string }[] = [
   { label: 'BBQ', photo: asset('images/img-9903_orig.jpg'), alt: 'Members grilling at the chapter BBQ' },
-  { label: 'Event', photo: asset('images/img-9801_orig.jpg'), alt: 'Members hanging out in a student lounge' }, // TODO: event name
-  { label: 'Event', photo: asset('images/cooking.jpg'), alt: 'A member frying food at a chapter social' }, // TODO: event name
+  { label: 'Game Night', photo: asset('images/img-9801_orig.jpg'), alt: 'Members playing games in a student lounge' },
+  { label: 'Cooking NRB', photo: asset('images/cooking.jpg'), alt: 'A member frying food at the Cooking NRB event' },
   { label: 'GBM', photo: asset('images/img-0165_orig.jpg'), alt: 'The Eboard in front of the SHPE banner at a general body meeting' },
-  { label: 'Event', photo: asset('images/img-0493_orig.jpg'), alt: 'Members holding flags from across Latin America' }, // TODO: event name
+  { label: 'Rep Your Flag', photo: asset('images/img-0493_orig.jpg'), alt: 'Members holding flags from across Latin America at Rep Your Flag' },
 ]

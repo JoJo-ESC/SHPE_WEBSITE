@@ -6,13 +6,13 @@ const FLYERS = [
   {
     src: asset('images/outreach-2026-brochure.png'),
     alt: 'Outreach Weekend 2026 student flyer: a free 3-day program for high school sophomores, juniors and seniors, March 20 to 22, 2026, with applications due February 22',
-    title: 'For high school students',
+    title: 'For High School Students',
     body: 'Three free days of college-level challenges, professor workshops and leadership activities.',
   },
   {
     src: asset('images/outreach-2026-host-flyer.png'),
     alt: 'Outreach Weekend 2026 host application flyer: applications due February 15, and hosts who house a student for the full weekend enter a $25 Amazon gift card raffle',
-    title: 'For RPI student hosts',
+    title: 'For RPI Student Hosts',
     body: 'Hosts welcomed a visiting student for the weekend, with a $25 Amazon gift card raffle as a thank-you.',
   },
 ]
@@ -23,12 +23,12 @@ export function OutreachWeekend() {
     <>
       <section className="page-hero ow-hero">
         <div className="container ow-hero-inner" data-reveal>
-          <img className="ow-logo" src={asset('images/outreach-2026-logo.png')} alt="SHP·E, the WALL-E themed Outreach Weekend logo" />
+          <img className="ow-logo" src={asset('images/outreach-2026-logo.png')} alt="SHP·E, the WALL-E-themed Outreach Weekend logo" />
           <h1 className="display">
             Outreach <em>Weekend</em>
           </h1>
           <p className="lead">
-            A free three-day weekend at RPI, held Friday, March 20 - Sunday, March 22, 2026, where high school students
+            A free three-day weekend at RPI, held from Friday, March 20, to Sunday, March 22, 2026, where high school students
             from NYC and Westchester explored STEM through college-level challenges, professor workshops and leadership
             activities.
           </p>
@@ -39,7 +39,7 @@ export function OutreachWeekend() {
         <div className="container" data-reveal>
           <div className="ow-head">
             <h2 className="h2">
-              Last spring: <em>WALL-E</em>
+              Last Spring: <em>WALL-E</em>
             </h2>
             <p>
               From March 20 to 22, 2026, high school students spent three days on campus with RPI student hosts, meeting
@@ -63,7 +63,7 @@ export function OutreachWeekend() {
       <section className="section bg-mist">
         <div className="container ow-upcoming" data-reveal>
           <h2 className="h2">
-            Next up: <em>spring 2027</em>
+            Next Up: <em>Spring 2027</em>
           </h2>
           <p>
             Dates, student registration and host applications are coming soon. Follow{' '}
@@ -74,7 +74,7 @@ export function OutreachWeekend() {
             <a href={`mailto:${CONTACT.outreachEmail}`} className="link-strong">
               {CONTACT.outreachEmail}
             </a>{' '}
-            and{' '}
+            or{' '}
             <a href={`tel:${CONTACT.outreachPhone.replace(/\D/g, '')}`} className="link-strong">
               {CONTACT.outreachPhone}
             </a>

@@ -40,7 +40,7 @@ function EventsHero() {
       <div className="container page-hero-inner" data-reveal>
         <div className="page-hero-copy">
           <h1 className="display">
-            What's next <em>in SHPE</em>
+            What's Next <em>in SHPE</em>
           </h1>
           <p className="lead">GBMs, Study Jams, career events and community time. Browse the 2026–27 member calendar month by month.</p>
           <div className="actions">
@@ -64,7 +64,7 @@ function CalendarSection() {
           <aside className="ev-side">
             <div className="ev-month-card">
               <div className="ev-month-body">
-                <h3>What to expect every month</h3>
+                <h3>What to Expect Every Month</h3>
                 <dl className="regulars">
                   <dt>General body meetings</dt>
                   <dd>6:30–9 PM, every other week</dd>
@@ -74,7 +74,7 @@ function CalendarSection() {
               </div>
             </div>
             <div className="card ev-suggest">
-              <h3>Have any suggestions?</h3>
+              <h3>Have Any Suggestions?</h3>
               <p>Committees help the Eboard plan everything on this calendar.</p>
               <Link to="/eboard#committees" className="link-strong">
                 Explore committees

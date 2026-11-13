@@ -38,7 +38,7 @@ export const COMMITTEES: Committee[] = [
   {
     name: 'SHPE Jr.',
     description:
-      'The SHPE Jr. Committee introduces high school students to STEM through presentations and experiments it develops. It keeps in touch with high school administrators and SHPE Jr. chapter members so activities carry on from year to year, and it runs at least three programs each semester, such as leadership and pre-college programs.',
+      'The SHPE Jr. Committee develops presentations and experiments that introduce high school students to STEM. Members keep in touch with high school administrators and SHPE Jr. chapter members so activities carry on from year to year. The committee also runs at least three programs each semester, such as leadership and pre-college programs.',
     officerId: 'vp',
   },
   {
@@ -50,31 +50,31 @@ export const COMMITTEES: Committee[] = [
   {
     name: 'Education',
     description:
-      "The Education Committee maintains SHPE's educational resources, like the backwork drive and textbooks. It coordinates educational and development programs, like the Resume Workshop and Beginner Series, and it runs ScholarSHPE.",
+      "The Education Committee maintains SHPE's educational resources, like the backwork drive and textbooks. The committee also coordinates educational and development programs, like the Resume Workshop and Beginner Series, and runs ScholarSHPE.",
     officerId: 'regional',
   },
   {
     name: 'Corporate',
     description:
-      'The Corporate Committee finds corporate sponsors to support the chapter. It works to strengthen our connection with alumni and keep them engaged, and it comes up with event ideas that bring alumni, companies, faculty and students together.',
+      'The Corporate Committee finds corporate sponsors to support the chapter. Members work to strengthen our connection with alumni and keep them engaged. They also come up with event ideas that bring alumni, companies, faculty and students together.',
     officerId: 'corporate',
   },
   {
     name: 'MentorSHPE',
     description:
-      'The MentorSHPE Committee pairs incoming freshmen and transfer students with upperclassmen mentors. It keeps mentors and mentees in touch through email and social media, and it organizes MentorSHPE events like basketball, trips to haunted houses and trips to trampoline parks.',
+      'The MentorSHPE Committee pairs incoming freshmen and transfer students with upperclass mentors. The committee keeps mentors and mentees in touch through email and social media and organizes MentorSHPE events like basketball, trips to haunted houses and trips to trampoline parks.',
     officerId: 'internal',
   },
   {
     name: 'SHPEtinas',
     description:
-      'The SHPEtinas Committee organizes professional and social SHPEtinas events, like Cafecitos. It collaborates with other women-focused organizations, like SWE, and it builds and maintains a network of SHPEtinas alumni.',
+      'The SHPEtinas Committee organizes professional and social SHPEtinas events, like Cafecitos. The committee also collaborates with other women-focused organizations, like SWE, and builds and maintains a network of SHPEtinas alumni.',
     officerId: 'external',
   },
   {
     name: 'Advertising',
     description:
-      'The Advertising Committee creates and designs advertisements for SHPE activities and events. It shares SHPE announcements on social media and through flyers, and its members help take pictures at events and keep the website up to date.',
+      'The Advertising Committee creates and designs advertisements for SHPE activities and events. Members share SHPE announcements on social media and through flyers, take pictures at events and help keep the website up to date.',
     officerId: 'webmaster',
   },
 ]

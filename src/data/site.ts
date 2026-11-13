@@ -59,7 +59,7 @@ export const NAV: NavItem[] = [
     label: 'MemberSHPE',
     children: [
       { to: '/membershpe', label: 'Overview' },
-      { to: '/membershpe/professional-development', label: 'Professional development' },
+      { to: '/membershpe/professional-development', label: 'Professional Development' },
       ...(OUTREACH_PAGE_LIVE ? [{ to: '/membershpe/outreach-weekend', label: 'Outreach Weekend' }] : []),
     ],
   },

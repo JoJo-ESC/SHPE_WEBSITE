@@ -42,7 +42,7 @@ const PILLARS = [
 
 const WAYS = [
   {
-    title: 'Professional development',
+    title: 'Professional Development',
     body: 'Scholarships, conferences, career fairs and resume workshops that get you ready for the real thing.',
     to: '/membershpe/professional-development',
   },
@@ -136,7 +136,9 @@ export function MemberSHPE() {
             {WAYS.map((w) =>
               w.to ? (
                 <Link key={w.title} to={w.to} className="way">
-                  <h3>{w.title}</h3>
+                  <h3>
+                    {w.title} <Icon name="arrow" size={22} className="way-arrow" />
+                  </h3>
                   <p>{w.body}</p>
                 </Link>
               ) : (

@@ -8,7 +8,7 @@ export function CalendarFlyers() {
 
   return (
     <div className="cal-flyers">
-      <h3 className="cal-flyers-title">{monthName} event flyers</h3>
+      <h3 className="cal-flyers-title">{monthName} Event Flyers</h3>
       <div className="cal-flyers-grid">
         {pages.map((p) => (
           <a key={p.src} href={p.src} target="_blank" rel="noreferrer" aria-label={`${p.alt} (opens full size)`}>
