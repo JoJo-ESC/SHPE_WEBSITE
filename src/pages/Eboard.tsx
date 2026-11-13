@@ -30,6 +30,7 @@ function Hero() {
 }
 
 function OfficerCard({ o, email = true }: { o: Officer; email?: boolean }) {
+  const [user, domain] = o.email.split('@')
   return (
     <div className="officer">
       <div className="officer-photo">
@@ -44,7 +45,11 @@ function OfficerCard({ o, email = true }: { o: Officer; email?: boolean }) {
         {email && (
           <a className="officer-mail" href={`mailto:${o.email}`} aria-label={`Email ${o.name} at ${o.email}`}>
             <Icon name="mail" size={13} />
-            <span>{o.email}</span>
+            {/* In narrow cards the address wraps before the @, not mid-word */}
+            <span>
+              {user}
+              <wbr />@{domain}
+            </span>
           </a>
         )}
       </div>
@@ -61,7 +66,7 @@ function Committees() {
     <section className="section bg-navy" id="committees">
       <div className="container" data-reveal>
         <div className="section-head">
-          <h2 className="h2">What does each committee do?</h2>
+          <h2 className="h2">What Does Each Committee Do?</h2>
           <a href={FORMS.committee} className="eb-apply">
             Apply to a committee
           </a>

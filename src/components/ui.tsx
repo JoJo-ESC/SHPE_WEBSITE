@@ -108,7 +108,7 @@ export function Avatar({ name, photo, size = 'md' }: { name: string; photo?: str
 
 /**
  * Mailing-list signup. There is no backend yet, so submitting opens the
- * visitor's mail app with the details filled in, addressed to the Eboard.
+ * visitor's mail app with the details filled in, addressed to the Webmaster.
  * Swap `handleSubmit` for a Google Form / Formspree POST when one exists.
  */
 export function SignupForm() {
@@ -123,7 +123,7 @@ export function SignupForm() {
       `Class year: ${data.get('year')}`,
       `Major: ${data.get('major') || '—'}`,
     ].join('\n')
-    window.location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent('Add me to the SHPE-Rensselaer mailing list')}&body=${encodeURIComponent(body)}`
+    window.location.href = `mailto:${CONTACT.webmaster}?subject=${encodeURIComponent('Add me to the SHPE-Rensselaer mailing list')}&body=${encodeURIComponent(body)}`
     setSent(true)
   }
 

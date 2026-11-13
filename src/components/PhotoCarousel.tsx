@@ -42,7 +42,7 @@ export function PhotoCarousel({ items, id }: { items: CarouselPhoto[]; id: strin
                 <svg className="prev-label" viewBox="0 0 360 360" aria-hidden="true">
                   <path id={`arc-${id}-${key}`} d="M 14 180 A 166 166 0 0 0 346 180" fill="none" />
                   {/* dx re-centres the word, since letter-spacing also trails the last letter */}
-                  <text dx="10">
+                  <text className={e.label.length > 6 ? 'is-long' : undefined} dx={e.label.length > 6 ? 3.5 : 10}>
                     <textPath href={`#arc-${id}-${key}`} startOffset="50%" textAnchor="middle">
                       {e.label}
                     </textPath>

@@ -81,13 +81,13 @@ function NextStrip() {
     <section className="next-strip">
       <div className="container next-grid" data-reveal>
         <Link to="/events" className="next-link">
-          <h3>2026–27 member calendar</h3>
+          <h3>2026–27 Member Calendar</h3>
           <p>GBMs, workshops and socials for the year, all in one place, with each month's event flyers.</p>
         </Link>
         <dl className="stats">
           <div>
-            <dt>1974</dt>
-            <dd>SHPE founded in Los Angeles</dd>
+            <dt>1983</dt>
+            <dd>our chapter founded at RPI</dd>
           </div>
           <div>
             <dt>9</dt>
@@ -104,16 +104,16 @@ function NextStrip() {
 }
 
 const ABOUT_TABS = {
-  Mission: (
+  'Our Mission at SHPE RPI': (
     <>
       <p className="about-lead">
         SHPE changes lives by empowering the Hispanic community to realize its fullest potential and to impact the world
         through STEM awareness, access, support and development.
       </p>
-      <p>At RPI, that means showing up for each other in class, in our careers and in Troy.</p>
+      <p>At RPI, that means showing up for each other in class, in our careers and at events.</p>
     </>
   ),
-  Vision: (
+  'Our Vision': (
     <>
       <p className="about-lead">
         A world where Hispanics are highly valued and influential as the leading innovators, scientists, mathematicians
@@ -122,11 +122,17 @@ const ABOUT_TABS = {
       <p>Every GBM, workshop and outreach event at SHPE-Rensselaer moves us closer to it.</p>
     </>
   ),
-  'Since 1974': (
+  'Changing Lives Since 1974': (
     <>
       <p className="about-lead">
-        SHPE was founded in Los Angeles in 1974 by a group of city engineers. Their goal was a national network of
-        professional engineers who could serve as role models in the Hispanic community.
+        The Society of Hispanic Professional Engineers (SHPE) was founded in Los Angeles, California, in 1974 by a group
+        of engineers employed by the city of Los Angeles.
+      </p>
+      <p>
+        Their objective was to form a national organization of professional engineers to serve as role models in the
+        Hispanic community. The concept of networking was the key basis for the organization. SHPE quickly established
+        two student chapters to begin the network that would grow to encompass the nation as well as reach countries
+        outside the United States.
       </p>
       <p>SHPE-Rensselaer was founded at RPI in 1983 and carries that same mission today.</p>
     </>
@@ -134,7 +140,7 @@ const ABOUT_TABS = {
 }
 
 function About() {
-  const [tab, setTab] = useState<keyof typeof ABOUT_TABS>('Since 1974')
+  const [tab, setTab] = useState<keyof typeof ABOUT_TABS>('Changing Lives Since 1974')
   return (
     <section className="section bg-mist about-section" id="about">
       <div className="container about-grid" data-reveal>
@@ -144,7 +150,7 @@ function About() {
           </h2>
           <img className="about-photo" src={asset('images/eboard.jpg')} alt="SHPE-Rensselaer Executive Board in front of the chapter banner" />
         </div>
-        <div>
+        <div className="about-copy">
           <div className="tabs" role="tablist">
             {(Object.keys(ABOUT_TABS) as (keyof typeof ABOUT_TABS)[]).map((t) => (
               <button key={t} role="tab" aria-selected={tab === t} className={tab === t ? 'is-active' : ''} onClick={() => setTab(t)}>
@@ -162,9 +168,9 @@ function About() {
 }
 
 const PILLARS: { title: string; body: string; icon: IconName; to: string }[] = [
-  { title: 'Professional development', body: "Build the skills, confidence and connections that turn an RPI degree into a career you're proud of.", icon: 'briefcase', to: '/membershpe/professional-development' },
+  { title: 'Professional Development', body: "Build the skills, confidence and connections that turn an RPI degree into a career you're proud of.", icon: 'briefcase', to: '/membershpe/professional-development' },
   { title: 'Outreach Weekend', body: "Bring STEM to the next generation and be the role model you wish you'd had growing up.", icon: 'pin', to: OUTREACH_PAGE_LIVE ? '/membershpe/outreach-weekend' : '/membershpe' },
-  { title: 'Community', body: 'General body meetings, study nights and socials. A familia of dedicated RPI students who have your back.', icon: 'users', to: '/events' },
+  { title: 'Community', body: 'General body meetings, Study Jams and socials. A familia of dedicated RPI students who have your back.', icon: 'users', to: '/events' },
 ]
 
 function WhySHPE() {
@@ -174,13 +180,13 @@ function WhySHPE() {
         <h2 className="h1 why-title">
           Why <em>SHPE?</em>
           <br />
-          and How Do I Get <em>Involved?</em>
+          And How Do I Get <em>Involved?</em>
         </h2>
         <div className="why-grid">
           <p className="why-copy">
             SHPE is a family of dedicated students at RPI. We take pride in seeing the success of our members and greatly
-            value the leaderSHPE that keeps our organization running. To become involved, check out our upcoming events
-            page. Feel free to contact an Executive Board member, or send us a message. We always welcome new members!
+            value the leaderSHPE that keeps our organization running. To get involved, check out our Upcoming Events
+            page. Feel free to contact an Executive Board member or send us a message. We always welcome new members!
           </p>
           <ul className="feature-list">
             {PILLARS.map((p) => (
@@ -208,7 +214,7 @@ function MonthCalendar() {
     <section className="section cal-section">
       <div className="container cal-layout" data-reveal>
         <div className="cal-copy">
-          <h2 className="h2">This month's calendar</h2>
+          <h2 className="h2">This Month's Calendar</h2>
           <p>
             Here's everything happening in SHPE this {monthName}: GBMs, Study Jams, career events and time with the
             familia. Everyone is welcome, no sign-up needed. Just show up.
@@ -345,7 +351,7 @@ function Join() {
         <div className="join-location">
           <div className="join-address">
             <Icon name="pin" size={22} className="join-pin" />
-            <h3>Where to find us</h3>
+            <h3>Where to Find Us</h3>
             <p>
               <strong>{CONTACT.campus}</strong>
               <br />
@@ -373,7 +379,7 @@ export function Supporters() {
     <section className="section supporters">
       <div className="container" data-reveal>
         <SectionHead
-          title="Thank You To Our Sponsor"
+          title="Thank You to Our Sponsor"
           aside={
             <p>
               Want to support the chapter? <a href={`mailto:${officer('corporate').email}`} className="link-strong">Email our Alumni &amp; Corporate Rep</a>

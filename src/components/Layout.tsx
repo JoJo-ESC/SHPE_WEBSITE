@@ -15,7 +15,24 @@ function Logo() {
 }
 
 function Nav() {
-  const [open, setOpen] = useState(false)
+  // The phone menu remembers the page it was opened on, so it closes by itself
+  // whenever the page changes, including with the back button
+  const { key } = useLocation()
+  const [openOn, setOpenOn] = useState<string | null>(null)
+  const open = openOn === key
+  const setOpen = (next: boolean) => setOpenOn(next ? key : null)
+
+  useEffect(() => {
+    if (!open) return
+    // Keep the page behind the open menu from scrolling (styles.css limits this to phones)
+    document.documentElement.classList.add('menu-open')
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpenOn(null)
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.documentElement.classList.remove('menu-open')
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [open])
 
   return (
     <header className={`nav ${open ? 'is-open' : ''}`}>

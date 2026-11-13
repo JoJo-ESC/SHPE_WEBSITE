@@ -73,7 +73,7 @@ const CONFERENCES: Conference[] = [
     body: (
       <>
         SHPE's Regional Leadership Development Conference (RLDC) takes place every spring. If you're interested in going,
-        prepare a letter of intent to our Regional Representative,{' '}
+        write a letter of intent to our Regional Representative,{' '}
         <a href={`mailto:${officer('regional').email}?subject=${encodeURIComponent('RLDC letter of intent')}`} className="link-strong">
           {officer('regional').name}
         </a>
@@ -103,9 +103,9 @@ const CONFERENCES: Conference[] = [
 ]
 
 const PREP: { title: string; body: string; icon: IconName }[] = [
-  { title: 'Career fairs', body: 'Meet recruiters at events like the NSBE/SHPE Career Fair and at the SHPE National Convention.', icon: 'briefcase' },
-  { title: 'Resume and interview workshops', body: 'Sharpen your resume and practice the interview before it counts.', icon: 'form' },
-  { title: 'Professional panels', body: 'Hear from engineers and alumni about what working in industry and research is really like.', icon: 'users' },
+  { title: 'Career Fairs', body: 'Meet recruiters at events like the NSBE/SHPE Career Fair and at the SHPE National Convention.', icon: 'briefcase' },
+  { title: 'Resume and Interview Workshops', body: 'Sharpen your resume and practice the interview before it counts.', icon: 'form' },
+  { title: 'Professional Panels', body: 'Hear from engineers and alumni about what working in industry and research is really like.', icon: 'users' },
 ]
 
 export function ProfessionalDevelopment() {
@@ -136,13 +136,13 @@ export function ProfessionalDevelopment() {
 
       <section className="section">
         <div className="container" data-reveal>
-          <SectionHead title={<>Funding for your <em>degree</em></>} />
+          <SectionHead title={<>Funding for Your <em>Degree</em></>} />
           <div className="cols cols-2">
             {SCHOLARSHIPS.map((x) => (
               <article key={x.name} className="info-block">
                 <h3>{x.name}</h3>
                 <p>{x.body}</p>
-                <h4>What you'll need</h4>
+                <h4>What You'll Need</h4>
                 <CheckList items={x.needs} />
                 <p>{x.more}</p>
               </article>
@@ -153,19 +153,19 @@ export function ProfessionalDevelopment() {
 
       <section className="section bg-navy" id="conferences">
         <div className="container" data-reveal>
-          <SectionHead title={<>A conference every <em>season</em></>} />
+          <SectionHead title={<>A Conference Every <em>Season</em></>} />
           <p className="section-lead">
             Conferences are a great chance to network with SHPE members from other chapters and recruiters from your
-            favorite companies at the career fair. Workshops run by corporate representatives build your professional
-            development too.
+            favorite companies at the career fair. Workshops run by corporate representatives also help you
+            grow professionally.
           </p>
           <table className="conf-table">
             <thead>
               <tr>
                 <th scope="col">When</th>
                 <th scope="col">Conference</th>
-                <th scope="col">What to know</th>
-                <th scope="col">From our chapter</th>
+                <th scope="col">What to Know</th>
+                <th scope="col">From Our Chapter</th>
               </tr>
             </thead>
             <tbody>
@@ -195,7 +195,7 @@ export function ProfessionalDevelopment() {
 
       <section className="section">
         <div className="container" data-reveal>
-          <SectionHead title={<>Ready for the <em>room</em></>} />
+          <SectionHead title={<>Ready for the <em>Room</em></>} />
           <div className="prep">
             <div>
               <ul className="prep-list">
